@@ -1,0 +1,33 @@
+.cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: var(--panel-2);
+}
+
+.cover--placeholder {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  padding: 10%;
+  overflow: hidden;
+  container-type: inline-size;
+}
+/* Faixa diagonal que dá textura ao placeholder sem imitar arte de capa. */
+.cover--placeholder::before {
+  content: '';
+  position: absolute;
+  inset: -20% 40% -20% -10%;
+  background: rgb(255 255 255 / 0.06);
+  transform: skewX(-18deg);
+}
+.cover--placeholder span {
+  position: relative;
+  font-size: clamp(14px, 11cqi, 44px);
+  font-weight: 900;
+  line-height: 1.02;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
