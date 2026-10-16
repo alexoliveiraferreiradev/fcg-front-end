@@ -1,0 +1,528 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-16T15:14:33.602Z",
+  "title": "Design System: FIAP Cloud Games",
+  "extensions": {
+    "colorMeta": {
+      "accent": {
+        "role": "primary",
+        "displayName": "FIAP Pink",
+        "canonical": "#ed145b",
+        "oklch": "oklch(60.8% 0.236 12.3)",
+        "tonalRamp": [
+          "oklch(15% 0.236 12.3)",
+          "oklch(26% 0.236 12.3)",
+          "oklch(37% 0.236 12.3)",
+          "oklch(48% 0.236 12.3)",
+          "oklch(59% 0.236 12.3)",
+          "oklch(70% 0.236 12.3)",
+          "oklch(82% 0.236 12.3)",
+          "oklch(95% 0.236 12.3)"
+        ]
+      },
+      "accent-fill-hover": {
+        "role": "primary",
+        "displayName": "Pink Flare",
+        "canonical": "#c90e4d",
+        "oklch": "oklch(65.3% 0.242 10.2)",
+        "tonalRamp": [
+          "oklch(15% 0.242 10.2)",
+          "oklch(26% 0.242 10.2)",
+          "oklch(37% 0.242 10.2)",
+          "oklch(48% 0.242 10.2)",
+          "oklch(59% 0.242 10.2)",
+          "oklch(70% 0.242 10.2)",
+          "oklch(82% 0.242 10.2)",
+          "oklch(95% 0.242 10.2)"
+        ]
+      },
+      "accent-ink": {
+        "role": "primary",
+        "displayName": "Pink Ink",
+        "canonical": "#ff4d85",
+        "oklch": "oklch(68.4% 0.216 6)",
+        "tonalRamp": [
+          "oklch(15% 0.216 6)",
+          "oklch(26% 0.216 6)",
+          "oklch(37% 0.216 6)",
+          "oklch(48% 0.216 6)",
+          "oklch(59% 0.216 6)",
+          "oklch(70% 0.216 6)",
+          "oklch(82% 0.216 6)",
+          "oklch(95% 0.216 6)"
+        ]
+      },
+      "accent-wash": {
+        "role": "primary",
+        "displayName": "Pink Wash",
+        "canonical": "#1a0710",
+        "oklch": "oklch(16.5% 0.037 351.8)",
+        "tonalRamp": [
+          "oklch(15% 0.037 351.8)",
+          "oklch(26% 0.037 351.8)",
+          "oklch(37% 0.037 351.8)",
+          "oklch(48% 0.037 351.8)",
+          "oklch(59% 0.037 351.8)",
+          "oklch(70% 0.037 351.8)",
+          "oklch(82% 0.037 351.8)",
+          "oklch(95% 0.037 351.8)"
+        ]
+      },
+      "bg": {
+        "role": "neutral",
+        "displayName": "Void",
+        "canonical": "#000000",
+        "oklch": "oklch(0% 0 0)",
+        "tonalRamp": [
+          "oklch(15% 0 0)",
+          "oklch(26% 0 0)",
+          "oklch(37% 0 0)",
+          "oklch(48% 0 0)",
+          "oklch(59% 0 0)",
+          "oklch(70% 0 0)",
+          "oklch(82% 0 0)",
+          "oklch(95% 0 0)"
+        ]
+      },
+      "panel": {
+        "role": "neutral",
+        "displayName": "Panel",
+        "canonical": "#0e0f10",
+        "oklch": "oklch(16.8% 0.003 248)",
+        "tonalRamp": [
+          "oklch(15% 0.003 248)",
+          "oklch(26% 0.003 248)",
+          "oklch(37% 0.003 248)",
+          "oklch(48% 0.003 248)",
+          "oklch(59% 0.003 248)",
+          "oklch(70% 0.003 248)",
+          "oklch(82% 0.003 248)",
+          "oklch(95% 0.003 248)"
+        ]
+      },
+      "panel-2": {
+        "role": "neutral",
+        "displayName": "Panel Step",
+        "canonical": "#181818",
+        "oklch": "oklch(20.9% 0 89.9)",
+        "tonalRamp": [
+          "oklch(15% 0 89.9)",
+          "oklch(26% 0 89.9)",
+          "oklch(37% 0 89.9)",
+          "oklch(48% 0 89.9)",
+          "oklch(59% 0 89.9)",
+          "oklch(70% 0 89.9)",
+          "oklch(82% 0 89.9)",
+          "oklch(95% 0 89.9)"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "#2b2d30",
+        "oklch": "oklch(29.6% 0.006 258.4)",
+        "tonalRamp": [
+          "oklch(15% 0.006 258.4)",
+          "oklch(26% 0.006 258.4)",
+          "oklch(37% 0.006 258.4)",
+          "oklch(48% 0.006 258.4)",
+          "oklch(59% 0.006 258.4)",
+          "oklch(70% 0.006 258.4)",
+          "oklch(82% 0.006 258.4)",
+          "oklch(95% 0.006 258.4)"
+        ]
+      },
+      "line-strong": {
+        "role": "neutral",
+        "displayName": "Hairline Strong",
+        "canonical": "#44474c",
+        "oklch": "oklch(39.7% 0.009 260.7)",
+        "tonalRamp": [
+          "oklch(15% 0.009 260.7)",
+          "oklch(26% 0.009 260.7)",
+          "oklch(37% 0.009 260.7)",
+          "oklch(48% 0.009 260.7)",
+          "oklch(59% 0.009 260.7)",
+          "oklch(70% 0.009 260.7)",
+          "oklch(82% 0.009 260.7)",
+          "oklch(95% 0.009 260.7)"
+        ]
+      },
+      "text": {
+        "role": "neutral",
+        "displayName": "White",
+        "canonical": "#ffffff",
+        "oklch": "oklch(100% 0 89.9)",
+        "tonalRamp": [
+          "oklch(15% 0 89.9)",
+          "oklch(26% 0 89.9)",
+          "oklch(37% 0 89.9)",
+          "oklch(48% 0 89.9)",
+          "oklch(59% 0 89.9)",
+          "oklch(70% 0 89.9)",
+          "oklch(82% 0 89.9)",
+          "oklch(95% 0 89.9)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Steel",
+        "canonical": "#acc1cc",
+        "oklch": "oklch(79.8% 0.028 230.5)",
+        "tonalRamp": [
+          "oklch(15% 0.028 230.5)",
+          "oklch(26% 0.028 230.5)",
+          "oklch(37% 0.028 230.5)",
+          "oklch(48% 0.028 230.5)",
+          "oklch(59% 0.028 230.5)",
+          "oklch(70% 0.028 230.5)",
+          "oklch(82% 0.028 230.5)",
+          "oklch(95% 0.028 230.5)"
+        ]
+      },
+      "faint": {
+        "role": "neutral",
+        "displayName": "Slate",
+        "canonical": "#7d8f99",
+        "oklch": "oklch(63.9% 0.026 232.1)",
+        "tonalRamp": [
+          "oklch(15% 0.026 232.1)",
+          "oklch(26% 0.026 232.1)",
+          "oklch(37% 0.026 232.1)",
+          "oklch(48% 0.026 232.1)",
+          "oklch(59% 0.026 232.1)",
+          "oklch(70% 0.026 232.1)",
+          "oklch(82% 0.026 232.1)",
+          "oklch(95% 0.026 232.1)"
+        ]
+      },
+      "ok": {
+        "role": "status",
+        "displayName": "Signal Green",
+        "canonical": "#3ecf8e",
+        "oklch": "oklch(76.2% 0.154 159.4)",
+        "tonalRamp": [
+          "oklch(15% 0.154 159.4)",
+          "oklch(26% 0.154 159.4)",
+          "oklch(37% 0.154 159.4)",
+          "oklch(48% 0.154 159.4)",
+          "oklch(59% 0.154 159.4)",
+          "oklch(70% 0.154 159.4)",
+          "oklch(82% 0.154 159.4)",
+          "oklch(95% 0.154 159.4)"
+        ]
+      },
+      "warn": {
+        "role": "status",
+        "displayName": "Amber",
+        "canonical": "#f5b94a",
+        "oklch": "oklch(82.1% 0.142 79.6)",
+        "tonalRamp": [
+          "oklch(15% 0.142 79.6)",
+          "oklch(26% 0.142 79.6)",
+          "oklch(37% 0.142 79.6)",
+          "oklch(48% 0.142 79.6)",
+          "oklch(59% 0.142 79.6)",
+          "oklch(70% 0.142 79.6)",
+          "oklch(82% 0.142 79.6)",
+          "oklch(95% 0.142 79.6)"
+        ]
+      },
+      "warn-wash": {
+        "role": "status",
+        "displayName": "Amber Wash",
+        "canonical": "#241a07",
+        "oklch": "oklch(22.5% 0.035 81.7)",
+        "tonalRamp": [
+          "oklch(15% 0.035 81.7)",
+          "oklch(26% 0.035 81.7)",
+          "oklch(37% 0.035 81.7)",
+          "oklch(48% 0.035 81.7)",
+          "oklch(59% 0.035 81.7)",
+          "oklch(70% 0.035 81.7)",
+          "oklch(82% 0.035 81.7)",
+          "oklch(95% 0.035 81.7)"
+        ]
+      },
+      "warn-line": {
+        "role": "status",
+        "displayName": "Amber Line",
+        "canonical": "#6b5420",
+        "oklch": "oklch(45.9% 0.075 84.9)",
+        "tonalRamp": [
+          "oklch(15% 0.075 84.9)",
+          "oklch(26% 0.075 84.9)",
+          "oklch(37% 0.075 84.9)",
+          "oklch(48% 0.075 84.9)",
+          "oklch(59% 0.075 84.9)",
+          "oklch(70% 0.075 84.9)",
+          "oklch(82% 0.075 84.9)",
+          "oklch(95% 0.075 84.9)"
+        ],
+        "note": "Used as a literal (#6b5420) in theme.css for the warn notice and mock banner borders; not yet a custom property."
+      },
+      "danger": {
+        "role": "status",
+        "displayName": "Alarm Rose",
+        "canonical": "#ff5c7f",
+        "oklch": "oklch(69.8% 0.198 11)",
+        "tonalRamp": [
+          "oklch(15% 0.198 11)",
+          "oklch(26% 0.198 11)",
+          "oklch(37% 0.198 11)",
+          "oklch(48% 0.198 11)",
+          "oklch(59% 0.198 11)",
+          "oklch(70% 0.198 11)",
+          "oklch(82% 0.198 11)",
+          "oklch(95% 0.198 11)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Lead promotion game name, uppercase; one per screen."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Detail panel game name, uppercase."
+      },
+      "section-title": {
+        "displayName": "Section Title",
+        "purpose": "Uppercase section headings preceded by the 28x3 pink dash."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Game card names, max 2 lines."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Running text; tabular numerals globally."
+      },
+      "body-sm": {
+        "displayName": "Body Small",
+        "purpose": "Notices, toasts, counts, dates, menu items."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Uppercase tracked controls and metadata (600-800 weight)."
+      }
+    },
+    "shadows": [
+      {
+        "name": "lift",
+        "value": "0 18px 40px -12px rgb(0 0 0 / 0.8)",
+        "purpose": "Floating layers only: user menu popover, toasts, promo cover image."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Default easing for slides, zooms and the count bump."
+      },
+      {
+        "name": "state",
+        "value": "0.15s",
+        "purpose": "Color/border transitions on controls."
+      },
+      {
+        "name": "card-border",
+        "value": "0.2s",
+        "purpose": "Card border on hover."
+      },
+      {
+        "name": "count-bump",
+        "value": "0.6s ease-out",
+        "purpose": "Signature moment: header cart count fills pink, scales 1.35 and rings when a game is added."
+      },
+      {
+        "name": "panel-in",
+        "value": "0.42s ease-out, translateX(48px) to 0",
+        "purpose": "Detail panel sheet entrance; backdrop fades 0.3s."
+      },
+      {
+        "name": "toast-in",
+        "value": "0.35s ease-out, translateY(-8px) to 0",
+        "purpose": "Toast entrance."
+      },
+      {
+        "name": "cover-zoom",
+        "value": "scale(1.04) over 0.6s ease-out",
+        "purpose": "Cover on card/promo hover."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "animation/transition 0.01ms",
+        "purpose": "prefers-reduced-motion: reduce collapses all motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "promo-stack-lead",
+        "value": "560px"
+      },
+      {
+        "name": "grid-2col",
+        "value": "640px"
+      },
+      {
+        "name": "header-collapse",
+        "value": "860px"
+      },
+      {
+        "name": "promo-stack",
+        "value": "900px"
+      },
+      {
+        "name": "hide-email",
+        "value": "1080px"
+      },
+      {
+        "name": "container",
+        "value": "1320px"
+      }
+    ],
+    "focus": {
+      "global": "outline: 2px solid #ff4d85; outline-offset: 2px",
+      "inputs": "border-color #ff4d85; box-shadow 0 0 0 1px #ff4d85"
+    }
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Solid pink fill, white tracked uppercase label; main action.",
+      "html": "<button class=\"ds-btn\">Entrar</button>",
+      "css": ".ds-btn{display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:0 16px;border:1px solid #e01257;border-radius:0;background:#e01257;color:#fff;font:800 11px/1 system-ui,\"Segoe UI\",Roboto,Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;transition:background-color .15s,border-color .15s,color .15s;cursor:pointer}.ds-btn:hover{background:#c90e4d;border-color:#c90e4d}.ds-btn:focus-visible{outline:2px solid #ff4d85;outline-offset:2px}"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Default \"+ Carrinho\" on cards; fills pink on hover.",
+      "html": "<button class=\"ds-btn-outline\"><svg viewBox=\"0 0 24 24\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"square\" stroke-linejoin=\"miter\" aria-hidden=\"true\"><path d=\"M12 5v14M5 12h14\"/></svg>Carrinho</button>",
+      "css": ".ds-btn-outline{display:inline-flex;align-items:center;gap:8px;min-height:32px;padding:0 12px;border:1px solid #ed145b;border-radius:0;background:transparent;color:#ff4d85;font:800 11px/1 system-ui,\"Segoe UI\",Roboto,Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;transition:background-color .15s,color .15s;cursor:pointer}.ds-btn-outline svg{width:14px;height:14px}.ds-btn-outline:hover{background:#e01257;color:#fff}.ds-btn-outline:focus-visible{outline:2px solid #ff4d85;outline-offset:2px}"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Neutral secondary action, e.g. \"Ver todos\", \"Tentar de novo\".",
+      "html": "<button class=\"ds-btn-ghost\">Tentar de novo</button>",
+      "css": ".ds-btn-ghost{min-height:40px;padding:0 16px;border:1px solid #44474c;border-radius:0;background:transparent;color:#fff;font:800 11px/1 system-ui,\"Segoe UI\",Roboto,Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;transition:background-color .15s,border-color .15s;cursor:pointer}.ds-btn-ghost:hover{background:#181818;border-color:#acc1cc}.ds-btn-ghost:focus-visible{outline:2px solid #ff4d85;outline-offset:2px}"
+    },
+    {
+      "name": "Genre Filter",
+      "kind": "chip",
+      "refersTo": "filter-chip",
+      "description": "Square toggle chips; active state fills pink.",
+      "html": "<div class=\"ds-genres\"><button class=\"ds-pill\" aria-pressed=\"true\">Todos</button><button class=\"ds-pill\" aria-pressed=\"false\">RPG</button><button class=\"ds-pill\" aria-pressed=\"false\">Racing</button></div>",
+      "css": ".ds-genres{display:flex;gap:8px;flex-wrap:wrap}.ds-pill{min-height:32px;padding:0 12px;border:1px solid #2b2d30;border-radius:0;background:transparent;color:#acc1cc;font:600 11px/1 system-ui,\"Segoe UI\",Roboto,Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;transition:border-color .15s,color .15s,background-color .15s;cursor:pointer}.ds-pill:hover{border-color:#acc1cc;color:#fff}.ds-pill[aria-pressed=\"true\"]{background:#e01257;border-color:#ed145b;color:#fff}.ds-pill:focus-visible{outline:2px solid #ff4d85;outline-offset:2px}"
+    },
+    {
+      "name": "Game Card",
+      "kind": "card",
+      "refersTo": "game-card",
+      "description": "3:4 cover, discount tag, 2-line name, genre and price; pink border on hover.",
+      "html": "<article class=\"ds-card\" tabindex=\"0\"><div class=\"ds-card-cover\"><span class=\"ds-tag\">-25%</span><div class=\"ds-ph\"><span>Neon Rally</span></div></div><div class=\"ds-card-body\"><h3 class=\"ds-card-name\">Neon Rally</h3><span class=\"ds-card-genre\">Racing</span><div class=\"ds-card-row\"><span class=\"ds-price\"><s>R$ 49,90</s><b>R$ 37,42</b></span></div></div></article>",
+      "css": ".ds-card{width:200px;display:flex;flex-direction:column;background:#000;border:1px solid #2b2d30;color:#fff;font-family:system-ui,\"Segoe UI\",Roboto,Arial,sans-serif;font-variant-numeric:tabular-nums;transition:border-color .2s}.ds-card:hover{border-color:#ed145b}.ds-card:focus-visible{outline:none;border-color:#ff4d85}.ds-card-cover{position:relative;aspect-ratio:3/4;overflow:hidden;border-bottom:1px solid #2b2d30}.ds-ph{height:100%;display:flex;align-items:flex-end;padding:10%;background:linear-gradient(160deg,#0f4c5c,#041a22)}.ds-ph span{font-weight:900;font-size:22px;line-height:1.02;text-transform:uppercase}.ds-tag{position:absolute;top:8px;left:8px;padding:3px 7px;background:#e01257;color:#fff;font-size:11px;font-weight:800;letter-spacing:.04em;line-height:1.2}.ds-card-body{display:flex;flex-direction:column;gap:2px;padding:12px}.ds-card-name{margin:0;font-size:15px;font-weight:700;line-height:1.25}.ds-card-genre{color:#acc1cc;font-size:11px;letter-spacing:.14em;text-transform:uppercase}.ds-card-row{padding-top:12px}.ds-price{display:inline-flex;gap:8px;align-items:baseline}.ds-price s{color:#7d8f99;font-size:.85em}.ds-price b{font-weight:800}"
+    },
+    {
+      "name": "Section Title",
+      "kind": "custom",
+      "refersTo": "section-title",
+      "description": "Uppercase wide-tracked heading with the 28x3 pink dash.",
+      "html": "<h2 class=\"ds-section-title\">Em promoção</h2>",
+      "css": ".ds-section-title{display:flex;align-items:center;gap:12px;margin:0;color:#fff;font:800 18px/1.2 system-ui,\"Segoe UI\",Roboto,Arial,sans-serif;letter-spacing:.2em;text-transform:uppercase}.ds-section-title::before{content:\"\";flex:none;width:28px;height:3px;background:#e01257}"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Square 44px field on panel; pink-ink focus border and ring.",
+      "html": "<label class=\"ds-field\"><span>E-mail</span><input placeholder=\"voce@exemplo.com\"></label>",
+      "css": ".ds-field{display:grid;gap:6px;width:280px;font-family:system-ui,\"Segoe UI\",Roboto,Arial,sans-serif}.ds-field span{color:#acc1cc;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase}.ds-field input{height:44px;padding:0 12px;border:1px solid #44474c;border-radius:0;background:#0e0f10;color:#fff;font:inherit;font-size:15px;transition:border-color .15s}.ds-field input:hover{border-color:#7d8f99}.ds-field input:focus-visible{outline:none;border-color:#ff4d85;box-shadow:0 0 0 1px #ff4d85}.ds-field input::placeholder{color:#7d8f99}"
+    },
+    {
+      "name": "Header Nav",
+      "kind": "nav",
+      "refersTo": "nav",
+      "description": "Text wordmark with pink dot, tracked uppercase links, active pink underline, cart chip with count.",
+      "html": "<nav class=\"ds-nav\"><span class=\"ds-logo\"><b>FIAP<i>.</i></b><small>Cloud Games</small></span><a class=\"on\" href=\"#\">Catálogo</a><a href=\"#\">Minha biblioteca</a><span class=\"ds-cart\">Carrinho<em>2</em></span></nav>",
+      "css": ".ds-nav{display:flex;align-items:stretch;gap:24px;height:64px;padding:0 16px;background:#000;border-bottom:1px solid #2b2d30;font-family:system-ui,\"Segoe UI\",Roboto,Arial,sans-serif}.ds-logo{display:flex;align-items:center;gap:8px;color:#fff}.ds-logo b{font-size:22px;font-weight:900;letter-spacing:.04em}.ds-logo i{font-style:normal;color:#ed145b}.ds-logo small{font-size:11px;letter-spacing:.3em;text-transform:uppercase}.ds-nav a{display:flex;align-items:center;color:#acc1cc;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;border-top:2px solid transparent;border-bottom:2px solid transparent;transition:color .15s}.ds-nav a:hover{color:#fff}.ds-nav a.on{color:#ff4d85;border-bottom-color:#ed145b}.ds-nav a:focus-visible{outline:2px solid #ff4d85;outline-offset:2px}.ds-cart{margin-left:auto;align-self:center;display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 12px;border:1px solid #2b2d30;color:#fff;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase}.ds-cart em{font-style:normal;display:grid;place-items:center;min-width:20px;height:20px;padding:0 5px;background:#181818;font-weight:800;letter-spacing:0}"
+    },
+    {
+      "name": "Toast",
+      "kind": "custom",
+      "refersTo": "toast",
+      "description": "Notification echo; tone carried by a colored icon square, never a side stripe.",
+      "html": "<div class=\"ds-toast\"><span class=\"ds-toast-mark\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\" stroke-linecap=\"square\" stroke-linejoin=\"miter\" aria-hidden=\"true\"><path d=\"m4 12.5 5 5L20 6.5\"/></svg></span><div class=\"ds-toast-body\"><strong>Pedido aprovado</strong><span>O jogo já está na sua biblioteca.</span></div></div>",
+      "css": ".ds-toast{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;width:340px;padding:12px;background:#0e0f10;border:1px solid #2b2d30;box-shadow:0 18px 40px -12px rgb(0 0 0 / .8);font-family:system-ui,\"Segoe UI\",Roboto,Arial,sans-serif}.ds-toast-mark{display:grid;place-items:center;width:28px;height:28px;background:#3ecf8e;color:#000}.ds-toast-mark svg{width:16px;height:16px}.ds-toast-body{display:grid;gap:2px;padding-top:3px;color:#acc1cc;font-size:13px}.ds-toast-body strong{color:#fff;font-size:15px}"
+    },
+    {
+      "name": "Pagination",
+      "kind": "nav",
+      "refersTo": "page-button",
+      "description": "Square 40px page buttons; current page filled pink.",
+      "html": "<nav class=\"ds-pages\"><button disabled>&lsaquo;</button><button aria-current=\"page\">1</button><button>2</button><button>3</button><button>&rsaquo;</button></nav>",
+      "css": ".ds-pages{display:flex;gap:4px}.ds-pages button{display:grid;place-items:center;min-width:40px;height:40px;padding:0 8px;border:1px solid #2b2d30;border-radius:0;background:none;color:#acc1cc;font:700 13px/1 system-ui,\"Segoe UI\",Roboto,Arial,sans-serif;cursor:pointer}.ds-pages button:hover:not(:disabled){border-color:#acc1cc;color:#fff}.ds-pages button[aria-current=\"page\"]{background:#e01257;border-color:#ed145b;color:#fff}.ds-pages button:disabled{opacity:.35;cursor:not-allowed}.ds-pages button:focus-visible{outline:2px solid #ff4d85;outline-offset:2px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Night Arcade Ledger",
+    "overview": "A black storefront with one hot pink, ruled into square cells by 1px hairlines. The covers bring the color. The chrome stays black, white and blue-grey so the game art and the pink actions are what you see first. It reads as a game store, but it is a test client: every price, state and limit on screen comes from the gateway, and the system's job is to show those states clearly, not to dress them up.\n\nThe identity is inspired by FIAP and starts from the approved mockup (`docs/superpowers/specs/2026-10-16-fcg-frontend-mockup.html`). PRODUCT.md calls it a starting point, so future screens follow it, but it can change when something works better. Density is medium: a fluid grid of 3:4 covers, compact uppercase labels, and generous gaps between sections. Ornament is close to zero. The only decorative device in the chrome is the pink dash in front of section titles.",
+    "keyCharacteristics": [
+      "Pure black ground, near-black panels, 1px grey lines as the main structure.",
+      "One accent hue in two jobs: `accent` as a fill under white text, `accent-ink` as pink text on black.",
+      "Square corners on every surface, control and tag.",
+      "System font stack. Heavy uppercase display, small tracked uppercase labels.",
+      "Authored line icons (24px grid, stroke 2, square caps) and authored SVG covers. No emoji, no icon fonts, no third-party art."
+    ],
+    "rules": [
+      {
+        "name": "The Three Pinks Rule",
+        "body": "`accent` (#ed145b) draws lines: section dashes, underlines, highlight borders, the logo dot. `accent-fill` is the background under white text, because white on #ed145b is only 4.33:1. `accent-ink` is pink text on black. Never set small text in `accent` on black. On black, `accent` measures 4.85:1, which is too thin for 11-13px uppercase labels. `accent-ink` measures 6.65:1.",
+        "section": "colors"
+      },
+      {
+        "name": "The Covers Bring the Color Rule",
+        "body": "Chrome stays black, white and blue-grey. Saturated color other than pink comes only from game covers, either directly or through the blurred cover backdrop on promo cards.",
+        "section": "colors"
+      },
+      {
+        "name": "The Tracked Caps Rule",
+        "body": "Every control and metadata label is 11px uppercase with 0.14em tracking. 0.2em is reserved for section titles and the \"Mais promoções\" strip heading, and 0.3em for the \"CLOUD GAMES\" wordmark.",
+        "section": "typography"
+      },
+      {
+        "name": "The Pink Dash Rule",
+        "body": "Section titles get a 28x3px `accent` dash before them, with a 12px gap. This is the only decorative mark in the chrome.",
+        "section": "typography"
+      },
+      {
+        "name": "The Line Before Shadow Rule",
+        "body": "Separate surfaces with a 1px `line` border first. Use the lift shadow only when an element floats above other content.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** put white text on `accent` fills, and use `accent-ink` for any pink text or pink outline on black.",
+      "**Do** keep every corner square and separate surfaces with 1px `line` or `line-strong` borders.",
+      "**Do** set controls and metadata in 11px uppercase with 0.14em tracking, and put the 28x3px pink dash before section titles.",
+      "**Do** draw icons on the 24px grid with stroke 2, square caps and miter joins, inline as SVG with `currentColor`.",
+      "**Do** show status with the status hues (`ok`, `warn`, `danger`) and an icon, and show tone in toasts with the colored icon square.",
+      "**Do** keep covers at 3:4 and treat the cart count bump as the only expressive motion. Honor `prefers-reduced-motion`."
+    ],
+    "donts": [
+      "**Don't** round corners or add pill shapes.",
+      "**Don't** use colored side stripes (left or right border accents) on cards, notices or toasts.",
+      "**Don't** set 11-13px text in `accent` (#ed145b) on black.",
+      "**Don't** use emoji, icon fonts or third-party icon packages. Don't use official FIAP logo files. The wordmark is text.",
+      "**Don't** introduce a webfont or a second family. The system stack is a brand commitment.",
+      "**Don't** add new decorative motion or shadows beyond the lift.",
+      "**Don't** ship the amber mock banner outside `dev:mock`."
+    ]
+  }
+}
