@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" width="600" height="800" role="img" aria-label="Chronicles of Vael">
+<defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0e2a1c"/><stop offset="1" stop-color="#6fae3f"/></linearGradient></defs>
+<rect width="600" height="800" fill="url(#g)"/>
+<circle cx="410" cy="200" r="70" fill="#f3e7b5"/><path d="M0 470 L120 300 L210 400 L330 250 L460 420 L600 320 V800 H0 Z" fill="#0f3a24" opacity=".75"/><path d="M0 560 L160 420 L280 520 L420 380 L600 500 V800 H0 Z" fill="#072014"/>
+<rect x="0" y="560" width="600" height="240" fill="url(#fade)"/>
+<linearGradient id="fade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".75"/></linearGradient>
+<rect x="546" y="44" width="10" height="10" fill="#e8c76a"/>
+<text x="534" y="54" text-anchor="end" font-family="system-ui, 'Segoe UI', Roboto, Arial, sans-serif" font-weight="700" font-size="14" letter-spacing="4" fill="#fff" opacity=".8">FCG · EXEMPLO</text>
+<text x="44" y="638" font-family="system-ui, 'Segoe UI', Roboto, Arial, sans-serif" font-weight="900" font-size="60" letter-spacing="-1" fill="#fff">CHRONICLES</text><text x="44" y="700" font-family="system-ui, 'Segoe UI', Roboto, Arial, sans-serif" font-weight="900" font-size="60" letter-spacing="-1" fill="#fff">OF VAEL</text>
+<rect x="44" y="730" width="56" height="5" fill="#e8c76a"/>
+</svg>

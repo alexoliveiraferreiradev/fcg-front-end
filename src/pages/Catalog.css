@@ -1,0 +1,68 @@
+.catalog {
+  display: grid;
+  gap: var(--s8);
+  padding-top: var(--s6);
+  padding-bottom: var(--s8);
+}
+
+.catalog__all {
+  display: grid;
+  gap: var(--s5);
+}
+
+.catalog__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s2) var(--s4);
+  scroll-margin-top: calc(var(--header-h) + var(--s4));
+}
+.catalog__count {
+  color: var(--muted);
+  font-size: var(--text-sm);
+}
+
+.catalog__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(176px, 1fr));
+  gap: var(--s4);
+  transition: opacity 0.2s;
+}
+.catalog__grid--stale {
+  opacity: 0.55;
+}
+
+.catalog__empty {
+  display: grid;
+  justify-items: start;
+  gap: var(--s3);
+  padding: var(--s7) var(--s5);
+  border: 1px dashed var(--line-strong);
+}
+.catalog__empty-title {
+  font-size: var(--text-lg);
+  font-weight: 700;
+}
+.catalog__empty-text {
+  color: var(--muted);
+}
+
+@media (max-width: 640px) {
+  .catalog {
+    gap: var(--s7);
+    padding-top: var(--s5);
+  }
+  .catalog__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--s3);
+  }
+}
+
+/* Itens de grid não podem crescer além da coluna (faixa rolável e linha de gêneros). */
+.catalog > *,
+.catalog__all > *,
+.promotions > *,
+.promotions__strip-wrap > * {
+  min-width: 0;
+}

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" width="600" height="800" role="img" aria-label="Iron Front">
+<defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a1a1c"/><stop offset="1" stop-color="#6b1f1f"/></linearGradient></defs>
+<rect width="600" height="800" fill="url(#g)"/>
+<path d="M-40 120 L300 260 L640 120" fill="none" stroke="#fff" stroke-opacity="0.12" stroke-width="22"/><path d="M-40 200 L300 340 L640 200" fill="none" stroke="#fff" stroke-opacity="0.12" stroke-width="22"/><path d="M-40 280 L300 420 L640 280" fill="none" stroke="#ff5c5c" stroke-opacity="1" stroke-width="16"/><path d="M-40 360 L300 500 L640 360" fill="none" stroke="#fff" stroke-opacity="0.12" stroke-width="22"/><path d="M-40 440 L300 580 L640 440" fill="none" stroke="#fff" stroke-opacity="0.12" stroke-width="22"/><path d="M-40 520 L300 660 L640 520" fill="none" stroke="#fff" stroke-opacity="0.12" stroke-width="22"/>
+<rect x="0" y="560" width="600" height="240" fill="url(#fade)"/>
+<linearGradient id="fade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".75"/></linearGradient>
+<rect x="546" y="44" width="10" height="10" fill="#ff5c5c"/>
+<text x="534" y="54" text-anchor="end" font-family="system-ui, 'Segoe UI', Roboto, Arial, sans-serif" font-weight="700" font-size="14" letter-spacing="4" fill="#fff" opacity=".8">FCG · EXEMPLO</text>
+<text x="44" y="638" font-family="system-ui, 'Segoe UI', Roboto, Arial, sans-serif" font-weight="900" font-size="60" letter-spacing="-1" fill="#fff">IRON</text><text x="44" y="700" font-family="system-ui, 'Segoe UI', Roboto, Arial, sans-serif" font-weight="900" font-size="60" letter-spacing="-1" fill="#fff">FRONT</text>
+<rect x="44" y="730" width="56" height="5" fill="#ff5c5c"/>
+</svg>

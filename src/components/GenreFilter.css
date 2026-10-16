@@ -1,0 +1,46 @@
+.genres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+}
+
+.genres__pill {
+  min-height: 32px;
+  padding: 0 var(--s3);
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--muted);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: var(--track-caps);
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition:
+    border-color 0.15s,
+    color 0.15s,
+    background-color 0.15s;
+}
+.genres__pill:hover {
+  border-color: var(--muted);
+  color: var(--text);
+}
+.genres__pill[aria-pressed='true'] {
+  background: var(--accent-fill);
+  border-color: var(--accent-fill);
+  color: #fff;
+}
+
+/* No celular os 21 gêneros viram uma linha rolável, para não empurrar a grade para baixo. */
+@media (max-width: 640px) {
+  .genres {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    margin-inline: calc(-1 * var(--gutter));
+    padding: 0 var(--gutter) var(--s2);
+    scrollbar-width: none;
+    mask-image: linear-gradient(90deg, #000 85%, transparent);
+  }
+  .genres::-webkit-scrollbar {
+    display: none;
+  }
+}

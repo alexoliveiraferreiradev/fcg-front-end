@@ -1,0 +1,273 @@
+.promotions {
+  display: grid;
+  gap: var(--s4);
+}
+
+.promotions__hero {
+  display: grid;
+  gap: var(--s3);
+  grid-template-columns: minmax(0, 1fr);
+}
+.promotions__hero--2,
+.promotions__hero--3 {
+  grid-template-columns: minmax(0, 1.85fr) minmax(0, 1fr);
+}
+.promotions__side {
+  display: grid;
+  gap: var(--s3);
+  grid-auto-rows: 1fr;
+}
+
+/* Card de promoção */
+.promo {
+  position: relative;
+  display: grid;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  transition: border-color 0.2s;
+}
+.promo:hover {
+  border-color: var(--accent);
+}
+.promo:focus-within {
+  border-color: var(--accent-ink);
+}
+
+/* Fundo: a própria capa, desfocada e escurecida, puxa a cor do jogo para o card. */
+.promo__backdrop {
+  position: absolute;
+  inset: -120px;
+  z-index: -1;
+  filter: blur(90px) saturate(0.9) brightness(0.38);
+  transform: scale(1.4);
+}
+.promo__backdrop .cover--placeholder span {
+  display: none;
+}
+
+.promo__cover {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  box-shadow: var(--shadow-lift);
+}
+.promo__cover .cover {
+  transition: transform 0.6s var(--ease-out);
+}
+.promo:hover .promo__cover .cover {
+  transform: scale(1.04);
+}
+
+.promo__info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--s2);
+  min-width: 0;
+}
+
+.promo__tag {
+  font-size: var(--text-sm);
+}
+
+.promo__name {
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+.promo__open {
+  all: unset;
+  cursor: pointer;
+}
+.promo__open::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.promo__open:focus-visible {
+  outline: none;
+}
+
+.promo__meta {
+  display: grid;
+  gap: var(--s2);
+  color: var(--muted);
+  font-size: var(--text-xs);
+  letter-spacing: var(--track-caps);
+  text-transform: uppercase;
+}
+.promo__desc {
+  max-width: 52ch;
+  color: rgb(255 255 255 / 0.78);
+  font-size: var(--text-md);
+  letter-spacing: 0;
+  text-transform: none;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.promo__deal {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: var(--s3);
+  row-gap: var(--s1);
+}
+.promo__until {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--muted);
+  font-size: var(--text-sm);
+}
+.promo__until svg {
+  width: 14px;
+  height: 14px;
+  align-self: center;
+}
+
+.promo__action {
+  position: relative;
+  z-index: 1;
+}
+
+/* Grande */
+.promo--lead {
+  grid-template-columns: minmax(0, 1fr) clamp(180px, 26%, 260px);
+  align-items: end;
+  gap: var(--s6);
+  min-height: 380px;
+  padding: var(--s6);
+}
+.promo--lead .promo__cover {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: center;
+}
+.promo--lead .promo__info {
+  grid-column: 1;
+  grid-row: 1;
+  gap: var(--s3);
+}
+.promo--lead .promo__name {
+  font-size: var(--text-2xl);
+  text-transform: uppercase;
+}
+.promo--lead .promo__price {
+  font-size: var(--text-xl);
+}
+.promo--lead .promo__action {
+  margin-top: var(--s2);
+}
+
+.promo--lead.promo--no-cover,
+.promo--side.promo--no-cover {
+  grid-template-columns: minmax(0, 1fr);
+}
+.promo--no-cover .promo__backdrop {
+  filter: saturate(1.2) brightness(0.55);
+}
+
+/* Menores, ao lado */
+.promo--side {
+  grid-template-columns: clamp(84px, 32%, 128px) minmax(0, 1fr);
+  align-items: center;
+  gap: var(--s4);
+  padding: var(--s4);
+  min-height: 180px;
+}
+.promo--side .promo__name {
+  font-size: var(--text-lg);
+}
+
+/* Faixa rolável: 4ª promoção em diante */
+.promotions__strip-wrap {
+  display: grid;
+  gap: var(--s3);
+  margin-top: var(--s2);
+}
+.promotions__more {
+  color: var(--muted);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: var(--track-caps-wide);
+  text-transform: uppercase;
+}
+.promotions__strip {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(260px, 300px);
+  gap: var(--s3);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  padding-bottom: var(--s2);
+}
+.promo--strip {
+  scroll-snap-align: start;
+  grid-template-columns: 72px minmax(0, 1fr);
+  align-items: center;
+  gap: var(--s3);
+  padding: var(--s3);
+  background: #000;
+}
+.promo--strip .promo__cover {
+  box-shadow: none;
+}
+.promo--strip .promo__name {
+  font-size: var(--text-md);
+  font-weight: 800;
+}
+.promo--strip .promo__info {
+  gap: 6px;
+}
+.promo--strip .promo__until {
+  font-size: var(--text-xs);
+}
+
+/* Esqueleto */
+.promo.skeleton {
+  border-color: var(--line);
+}
+.promo--side.skeleton {
+  min-height: 0;
+}
+
+@media (max-width: 900px) {
+  .promotions__hero--2,
+  .promotions__hero--3 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .promotions__side {
+    grid-auto-rows: auto;
+  }
+  .promo--lead {
+    min-height: 0;
+    padding: var(--s5);
+    gap: var(--s5);
+  }
+}
+
+@media (max-width: 560px) {
+  .promo--lead {
+    grid-template-columns: minmax(0, 1fr);
+    padding: var(--s4);
+  }
+  .promo--lead .promo__cover {
+    grid-column: 1;
+    grid-row: 1;
+    width: 56%;
+    justify-self: start;
+  }
+  .promo--lead .promo__info {
+    grid-row: 2;
+  }
+  .promo--side {
+    min-height: 0;
+  }
+}

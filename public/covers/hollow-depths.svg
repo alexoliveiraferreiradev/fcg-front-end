@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" width="600" height="800" role="img" aria-label="Hollow Depths">
+<defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a0f4f"/><stop offset="1" stop-color="#c2477a"/></linearGradient></defs>
+<rect width="600" height="800" fill="url(#g)"/>
+<path d="M40 800 V400 A260 260 0 0 1 560 400 V800" fill="none" stroke="#fff" stroke-opacity="0.08" stroke-width="10"/><path d="M75 800 V413 A225 225 0 0 1 525 413 V800" fill="none" stroke="#fff" stroke-opacity="0.13" stroke-width="10"/><path d="M110 800 V426 A190 190 0 0 1 490 426 V800" fill="none" stroke="#fff" stroke-opacity="0.18" stroke-width="10"/><path d="M145 800 V439 A155 155 0 0 1 455 439 V800" fill="none" stroke="#fff" stroke-opacity="0.23000000000000004" stroke-width="10"/><path d="M180 800 V452 A120 120 0 0 1 420 452 V800" fill="none" stroke="#fff" stroke-opacity="0.28" stroke-width="10"/><path d="M215 800 V465 A85 85 0 0 1 385 465 V800" fill="none" stroke="#fff" stroke-opacity="0.33" stroke-width="10"/><path d="M250 800 V478 A50 50 0 0 1 350 478 V800" fill="none" stroke="#fff" stroke-opacity="0.38000000000000006" stroke-width="10"/><rect x="294" y="520" width="12" height="26" fill="#fff"/><circle cx="300" cy="512" r="7" fill="#fff"/>
+<rect x="0" y="560" width="600" height="240" fill="url(#fade)"/>
+<linearGradient id="fade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".75"/></linearGradient>
+<rect x="546" y="44" width="10" height="10" fill="#ff4d85"/>
+<text x="534" y="54" text-anchor="end" font-family="system-ui, 'Segoe UI', Roboto, Arial, sans-serif" font-weight="700" font-size="14" letter-spacing="4" fill="#fff" opacity=".8">FCG · EXEMPLO</text>
+<text x="44" y="638" font-family="system-ui, 'Segoe UI', Roboto, Arial, sans-serif" font-weight="900" font-size="60" letter-spacing="-1" fill="#fff">HOLLOW</text><text x="44" y="700" font-family="system-ui, 'Segoe UI', Roboto, Arial, sans-serif" font-weight="900" font-size="60" letter-spacing="-1" fill="#fff">DEPTHS</text>
+<rect x="44" y="730" width="56" height="5" fill="#ff4d85"/>
+</svg>
