@@ -230,13 +230,13 @@ A monochrome dark interface with a single saturated pink and three status hues t
 The content column is centered with a 1320px max width and a fluid gutter (clamp 16-40px). The header is sticky and 64px tall, black at 92% opacity with an 8px backdrop blur. Sections are 72px apart (48px on mobile). Inside a section, blocks are 24px apart.
 
 - **Catalog grid:** `auto-fill` columns at least 176px wide with 16px gaps. Below 640px it switches to exactly 2 columns with 12px gaps. Covers are always 3:4.
-- **Promotions:** the lead card and the side column split 1.85fr / 1fr. The lead card is at least 380px tall, with 32px padding and the cover on the right. The side column holds up to two cards. A fourth promotion onward goes into a horizontally scrolling, snapping strip of 260-300px cards. Below 900px everything stacks. Below 560px the lead cover moves above the text at 56% width.
-- **Genre filter:** wraps on desktop. Below 640px it becomes a single scrolling row that bleeds to the screen edge and fades out on the right.
-- **Header:** below 860px the nav collapses into a full-width sheet under a menu button, and the cart label and wordmark subtitle hide. Below 1080px the user's email hides.
+- **Promotions:** the lead card and the side column split 1.85fr / 1fr. The lead card is at least 380px tall, with 32px padding and the cover on the right. The side column holds up to two cards. A fourth promotion onward goes into a strip whose cards share the row and scroll horizontally, with snapping, once they would drop below 260px. Below 900px everything stacks. Below 560px the lead cover moves above the text at 56% width.
+- **Genre filter:** on desktop it shows "Todos" plus the first 8 genres and a dashed "Mais gêneros (n)" toggle that reveals the rest in place; a selected hidden genre stays visible. Below 640px the toggle hides and the filter becomes a single scrolling row that bleeds to the screen edge and fades out on the right.
+- **Header:** below 960px the cart label and wordmark subtitle hide; below 720px the nav collapses into a full-width sheet under a menu button. Below 1080px the user's email hides.
 - **Detail panel:** a sheet pinned to the right edge, `min(460px, 100%)` wide. It becomes full screen on mobile.
 - **Spacing:** a 4/8 scale (4, 8, 12, 16, 24, 32, 48, 72).
 
-Breakpoints (560, 640, 860, 900, 1080px) are in the sidecar.
+Breakpoints (560, 640, 720, 900, 960, 1080px) are in the sidecar.
 
 ## Elevation & Depth
 
@@ -258,8 +258,8 @@ Every corner is square: `border-radius: 0` on buttons, inputs, cards, chips, tag
 Small, solid and uppercase. They read as controls, not decoration.
 - **Shape:** square (0), 1px border in the fill color, 40px tall (32px for small), 16px side padding (12px for small), 11px labels at weight 800. Icons inside are 14px.
 - **Primary:** `accent-fill` fill, white label. Hover darkens to `accent-fill-hover`.
-- **Outline:** transparent, `accent` border, `accent-ink` label. On hover it fills with `accent` and the label turns white. This is the default "+ Carrinho" action on cards.
-- **Ghost:** transparent, `line-strong` border, white label. On hover the fill becomes `panel-2` and the border `muted`.
+- **Outline:** transparent, `accent` border, `accent-ink` label. On hover it fills with `accent` and the label turns white. This is the "+ Carrinho" action on promotions and the detail panel.
+- **Ghost:** transparent, `line-strong` border, white label. On hover the fill becomes `panel-2` and the border `muted`. This is the "+ Carrinho" action on catalog grid cards, so pink is not repeated a dozen times on one screen.
 - **Disabled:** 50% opacity, `not-allowed` cursor.
 - **Focus:** global 2px `accent-ink` outline with a 2px offset.
 
@@ -283,18 +283,18 @@ Small, solid and uppercase. They read as controls, not decoration.
 - **Header:** text wordmark "FIAP." with the dot in `accent` (22px/900) and "CLOUD GAMES" (11px, 0.3em). Nav links are 11px tracked uppercase in `muted`. The active link uses `accent-ink` text with a 2px `accent` underline at the header's bottom edge.
 - **Cart chip:** a 36px box with a 1px `line` border, cart icon, label and count square.
 - **User menu:** trigger box with a role badge (an `accent` border when the role is admin). The popover is `panel` with the lift shadow.
-- **Mobile:** below 860px a menu button opens a black full-width sheet of 48px rows separated by `line` dividers.
+- **Mobile:** below 720px a menu button opens a black full-width sheet of 48px rows separated by `line` dividers.
 - **Tabs (sign-in):** two equal columns with a 2px `accent` underline on the selected tab.
 - **Pagination:** 40px square buttons with 1px `line` borders. The current page is filled `accent` with white text. Disabled buttons are at 35% opacity.
 
 ### Toast
-The toast echoes the simulated notification e-mails. It sits on a `panel` surface with a 1px `line` border and the lift shadow, and is pinned below the header at the top right (max 360px). Tone is shown by a 28px colored icon square: `ok` with a black check, `accent` with a white alert for errors, white for info. There is no colored side stripe. It slides in over 0.35s.
+The toast echoes the simulated notification e-mails. It sits on a `panel` surface with a 1px `line` border and the lift shadow, and is pinned below the header at the top right (max 360px). Tone is shown by a 28px colored icon square: `ok` with a black check, `accent` with a white alert for errors, white for info. There is no colored side stripe. It slides in over 0.35s and fades up and out over 0.2s when dismissed.
 
 ### Detail Panel
-A modal `dialog` sheet on the right. It has a sticky top bar with a 40px close box, a 3:4 cover capped at 58vh, a headline-sized name, the genre, the price with the end date, the same action as the card, and a description above a 1px divider. It slides in from 48px over 0.42s on `ease-out`. The backdrop fades to 70% black.
+A modal `dialog` sheet on the right. It has a sticky top bar with a 40px close box, a 3:4 cover capped at 58vh, a headline-sized name, the genre, the price with the end date, the same action as the card, and a description above a 1px divider. It slides in from 48px over 0.42s on `ease-out` and back out over 0.2s on `ease-in`. The backdrop fades to 70% black and back.
 
 ### Cart Count Bump (signature motion)
-When a game is added, the header count square fills with `accent`, scales to 1.35, and lets out a pink ring over 0.6s. This is the screen's one expressive motion moment. Every other motion is short state feedback: color and border transitions (0.15-0.2s), the panel slide, the toast drop, the 1.04 cover zoom on hover, and skeleton shimmer. `prefers-reduced-motion` reduces all animations and transitions to about 0ms.
+When a game is added, the header count square fills with `accent`, scales to 1.35, and lets out a pink ring over 0.6s. This is the screen's one expressive motion moment. Every other motion is short state feedback: color and border transitions (0.15-0.2s), the panel slide, the toast drop, the 1.04 cover zoom on hover (0.3s), a 0.97 press scale on buttons (0.1s), and skeleton shimmer. `prefers-reduced-motion` reduces all animations and transitions to about 0ms.
 
 ### Covers
 Authored SVGs in `public/covers/`, 600x800 (3:4), built from flat shapes with a dark gradient fade at the bottom and the title set in heavy uppercase. Games without a cover use a placeholder: a gradient with a faint diagonal band and the game name in 900-weight uppercase, sized to the container.
