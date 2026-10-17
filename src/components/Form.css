@@ -1,0 +1,77 @@
+.form {
+  display: grid;
+  gap: var(--s4);
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+}
+.field label {
+  color: var(--muted);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: var(--track-caps);
+  text-transform: uppercase;
+}
+.field__control {
+  position: relative;
+  display: grid;
+}
+/* Ícone decorativo à esquerda: o rótulo já descreve o campo, então não entra na leitura de tela. */
+.field__icon {
+  position: absolute;
+  left: var(--s3);
+  top: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--faint);
+  pointer-events: none;
+  transform: translateY(-50%);
+  transition: color 0.15s;
+}
+.field__icon svg {
+  width: 18px;
+  height: 18px;
+}
+.field.field--icon input {
+  padding-left: calc(var(--s3) + 18px + var(--s3));
+}
+.field__control:focus-within .field__icon {
+  color: var(--accent-ink);
+}
+.field--error .field__icon {
+  color: var(--danger);
+}
+
+.field input {
+  height: 44px;
+  padding: 0 var(--s3);
+  border: 1px solid var(--line-strong);
+  border-radius: 0;
+  background: var(--panel);
+  color: var(--text);
+  transition: border-color 0.15s;
+}
+.field input:hover {
+  border-color: var(--faint);
+}
+.field input:focus-visible {
+  outline: none;
+  border-color: var(--accent-ink);
+  box-shadow: 0 0 0 1px var(--accent-ink);
+}
+.field input::placeholder {
+  color: var(--faint);
+}
+.field input:-webkit-autofill {
+  -webkit-text-fill-color: var(--text);
+  box-shadow: 0 0 0 100px var(--panel) inset;
+}
+.field--error input {
+  border-color: var(--danger);
+}
+.field__error {
+  color: var(--danger);
+  font-size: var(--text-sm);
+}

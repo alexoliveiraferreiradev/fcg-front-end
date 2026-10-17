@@ -37,6 +37,21 @@ export const UserIcon = (p: IconProps) => (
   </Base>
 )
 
+export const MailIcon = (p: IconProps) => (
+  <Base {...p}>
+    <path d="M3 5h18v14H3z" />
+    <path d="m3 6 9 7 9-7" />
+  </Base>
+)
+
+export const LockIcon = (p: IconProps) => (
+  <Base {...p}>
+    <path d="M5 11h14v10H5z" />
+    <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+    <path d="M12 15v2" />
+  </Base>
+)
+
 export const CheckIcon = (p: IconProps) => (
   <Base {...p}>
     <path d="m4 12.5 5 5L20 6.5" />

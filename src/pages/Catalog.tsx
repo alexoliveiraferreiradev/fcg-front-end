@@ -2,7 +2,6 @@ import { useMemo, useRef, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import { getCatalog, getPromoted } from '../api/catalog'
-import { isRateLimit } from '../api/client'
 import { GAME_GENRES, type GameGenre } from '../api/types'
 import { fromCatalog, fromPromotion, genreLabel, sortPromotions, type GameView } from '../lib/game'
 import { retryDelay, retryUnlessClientError } from '../lib/queryPolicy'
@@ -11,7 +10,7 @@ import { GamePanel } from '../components/GamePanel'
 import { GenreFilter } from '../components/GenreFilter'
 import { Pagination } from '../components/Pagination'
 import { Promotions, PromotionsSkeleton } from '../components/Promotions'
-import { AlertIcon, ClockIcon, RetryIcon } from '../components/Icons'
+import { QueryProblem } from '../components/QueryProblem'
 import './Catalog.css'
 
 const PAGE_SIZE = 12
@@ -23,34 +22,6 @@ function parseGenre(value: string | null): GameGenre | undefined {
 function parsePage(value: string | null): number {
   const n = Number(value)
   return Number.isInteger(n) && n > 0 ? n : 1
-}
-
-function QueryProblem({ error, retrying, onRetry }: { error: unknown; retrying: boolean; onRetry: () => void }) {
-  if (isRateLimit(error)) {
-    return (
-      <div className="notice notice--warn" role="status">
-        <ClockIcon />
-        <div>
-          <strong>Limite do gateway atingido</strong>
-          {error.message} {retrying ? 'Tentando de novo em instantes.' : ''}
-        </div>
-      </div>
-    )
-  }
-  return (
-    <div className="notice notice--error" role="alert">
-      <AlertIcon />
-      <div>
-        <strong>Não deu para carregar</strong>
-        {(error as Error).message}
-        <div className="notice__actions">
-          <button type="button" className="btn btn--ghost btn--sm" onClick={onRetry}>
-            <RetryIcon /> Tentar de novo
-          </button>
-        </div>
-      </div>
-    </div>
-  )
 }
 
 export function Catalog() {

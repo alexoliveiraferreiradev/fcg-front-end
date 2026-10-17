@@ -1,11 +1,13 @@
-import { useId, useState, type FormEvent, type ReactNode } from 'react'
+import { useState, type FormEvent } from 'react'
 import { Navigate, useNavigate, useSearchParams } from 'react-router-dom'
 import { register } from '../api/auth'
-import { ApiError, isRateLimit } from '../api/client'
+import { ApiError } from '../api/client'
 import { useAuth } from '../auth/AuthContext'
 import { pendingAdd, useCart } from '../cart/CartContext'
 import { useToast } from '../components/Toast'
-import { AlertIcon } from '../components/Icons'
+import { Field, FormError } from '../components/Form'
+import { LockIcon, MailIcon, UserIcon } from '../components/Icons'
+import { describe } from '../lib/errors'
 import './SignIn.css'
 
 type Tab = 'entrar' | 'cadastrar'
@@ -13,46 +15,6 @@ type Tab = 'entrar' | 'cadastrar'
 /** Só caminhos internos: evita redirecionar para outro site via ?voltar=. */
 function safeReturn(value: string | null): string {
   return value && value.startsWith('/') && !value.startsWith('//') ? value : '/'
-}
-
-function Field({
-  label,
-  error,
-  children,
-}: {
-  label: string
-  error?: string[]
-  children: (props: { id: string; 'aria-invalid'?: boolean; 'aria-describedby'?: string }) => ReactNode
-}) {
-  const id = useId()
-  const errId = `${id}-err`
-  return (
-    <div className={`field${error?.length ? ' field--error' : ''}`}>
-      <label htmlFor={id}>{label}</label>
-      {children({ id, 'aria-invalid': error?.length ? true : undefined, 'aria-describedby': error?.length ? errId : undefined })}
-      {error?.length ? (
-        <p id={errId} className="field__error">
-          {error.join(' ')}
-        </p>
-      ) : null}
-    </div>
-  )
-}
-
-function FormError({ message }: { message: string | null }) {
-  if (!message) return null
-  return (
-    <div className="notice notice--error" role="alert">
-      <AlertIcon />
-      <div>{message}</div>
-    </div>
-  )
-}
-
-function describe(e: unknown, fallback: string): string {
-  if (isRateLimit(e)) return e.message
-  if (e instanceof ApiError) return e.message || fallback
-  return fallback
 }
 
 export function SignIn() {
@@ -153,12 +115,12 @@ export function SignIn() {
         {tab === 'entrar' ? (
           <form className="form" onSubmit={onLogin} noValidate>
             <FormError message={formError} />
-            <Field label="E-mail" error={fieldErrors.email}>
+            <Field label="E-mail" icon={<MailIcon />} error={fieldErrors.email}>
               {(p) => (
                 <input {...p} type="email" autoComplete="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
               )}
             </Field>
-            <Field label="Senha" error={fieldErrors.password}>
+            <Field label="Senha" icon={<LockIcon />} error={fieldErrors.password}>
               {(p) => (
                 <input
                   {...p}
@@ -177,15 +139,15 @@ export function SignIn() {
         ) : (
           <form className="form" onSubmit={onRegister} noValidate>
             <FormError message={formError} />
-            <Field label="Nome" error={fieldErrors.name}>
+            <Field label="Nome" icon={<UserIcon />} error={fieldErrors.name}>
               {(p) => <input {...p} autoComplete="name" required value={name} onChange={(e) => setName(e.target.value)} />}
             </Field>
-            <Field label="E-mail" error={fieldErrors.email}>
+            <Field label="E-mail" icon={<MailIcon />} error={fieldErrors.email}>
               {(p) => (
                 <input {...p} type="email" autoComplete="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
               )}
             </Field>
-            <Field label="Senha" error={fieldErrors.password}>
+            <Field label="Senha" icon={<LockIcon />} error={fieldErrors.password}>
               {(p) => (
                 <input
                   {...p}
@@ -197,7 +159,7 @@ export function SignIn() {
                 />
               )}
             </Field>
-            <Field label="Confirmar senha" error={fieldErrors.confirmPassword}>
+            <Field label="Confirmar senha" icon={<LockIcon />} error={fieldErrors.confirmPassword}>
               {(p) => (
                 <input
                   {...p}
