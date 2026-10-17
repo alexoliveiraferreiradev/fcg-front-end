@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" width="600" height="800" role="img" aria-label="Echoes of the Spire">
+<defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a3fb0"/><stop offset="1" stop-color="#140d2e"/></linearGradient>
+<linearGradient id="fade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".75"/></linearGradient></defs>
+<rect width="600" height="800" fill="url(#g)"/>
+<circle cx="300" cy="150" r="60" fill="none" stroke="#c8b6ff" stroke-opacity="0.35" stroke-width="3"/><circle cx="300" cy="150" r="115" fill="none" stroke="#c8b6ff" stroke-opacity="0.29" stroke-width="3"/><circle cx="300" cy="150" r="170" fill="none" stroke="#c8b6ff" stroke-opacity="0.23" stroke-width="3"/><circle cx="300" cy="150" r="225" fill="none" stroke="#c8b6ff" stroke-opacity="0.17" stroke-width="3"/><circle cx="300" cy="150" r="280" fill="none" stroke="#c8b6ff" stroke-opacity="0.11" stroke-width="3"/><path d="M300 90 L345 200 V560 H255 V200 Z" fill="#1e1640"/><path d="M300 90 L345 200 H255 Z" fill="#3a2d7a"/><rect x="292" y="200" width="16" height="26" fill="#ffd166"/><rect x="292" y="260" width="16" height="26" fill="#ffd166"/><rect x="292" y="320" width="16" height="26" fill="#ffd166"/><rect x="292" y="380" width="16" height="26" fill="#ffd166"/><rect x="292" y="440" width="16" height="26" fill="#ffd166"/>
+<rect x="0" y="540" width="600" height="260" fill="url(#fade)"/>
+<rect x="546" y="44" width="10" height="10" fill="#c8b6ff"/>
+<text x="534" y="54" text-anchor="end" font-family="system-ui, 'Segoe UI', Roboto, Arial, sans-serif" font-weight="700" font-size="14" letter-spacing="4" fill="#fff" opacity=".8">FCG · EXEMPLO</text>
+<text x="44" y="639" font-family="system-ui, 'Segoe UI', Roboto, Arial, sans-serif" font-weight="900" font-size="60" letter-spacing="-1" fill="#fff">ECHOES OF</text><text x="44" y="700" font-family="system-ui, 'Segoe UI', Roboto, Arial, sans-serif" font-weight="900" font-size="60" letter-spacing="-1" fill="#fff">THE SPIRE</text><rect x="44" y="730" width="56" height="5" fill="#c8b6ff"/>
+</svg>

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" width="600" height="800" role="img" aria-label="Court Kings">
+<defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f4a259"/><stop offset="1" stop-color="#a44a1f"/></linearGradient>
+<linearGradient id="fade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".75"/></linearGradient></defs>
+<rect width="600" height="800" fill="url(#g)"/>
+<path d="M0 520 H600 M300 520 V800" stroke="#fff" stroke-opacity=".35" stroke-width="6"/><path d="M120 800 A180 180 0 0 1 480 800" stroke="#fff" stroke-opacity=".35" stroke-width="6" fill="none"/><rect x="180" y="110" width="240" height="160" fill="#fff" opacity=".92"/><rect x="250" y="170" width="100" height="70" fill="none" stroke="#e8590c" stroke-width="6"/><rect x="290" y="270" width="20" height="250" fill="#2b2b2b"/><ellipse cx="300" cy="255" rx="62" ry="12" fill="none" stroke="#e8590c" stroke-width="8"/><path d="M245 262 L270 330 L300 268 L330 330 L355 262" stroke="#fff" stroke-width="3" fill="none" opacity=".8"/><circle cx="430" cy="410" r="48" fill="#e8590c"/><path d="M382 410 H478 M430 362 V458" stroke="#2b1200" stroke-width="4"/>
+<rect x="0" y="540" width="600" height="260" fill="url(#fade)"/>
+<rect x="546" y="44" width="10" height="10" fill="#ffffff"/>
+<text x="534" y="54" text-anchor="end" font-family="system-ui, 'Segoe UI', Roboto, Arial, sans-serif" font-weight="700" font-size="14" letter-spacing="4" fill="#fff" opacity=".8">FCG · EXEMPLO</text>
+<text x="44" y="700" font-family="system-ui, 'Segoe UI', Roboto, Arial, sans-serif" font-weight="900" font-size="60" letter-spacing="-1" fill="#fff">COURT KINGS</text><rect x="44" y="730" width="56" height="5" fill="#ffffff"/>
+</svg>

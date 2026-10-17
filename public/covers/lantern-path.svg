@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" width="600" height="800" role="img" aria-label="Lantern Path">
+<defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a2240"/><stop offset="1" stop-color="#0b0f1f"/></linearGradient>
+<linearGradient id="fade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".75"/></linearGradient></defs>
+<rect width="600" height="800" fill="url(#g)"/>
+<path d="M120 800 C160 600 360 560 330 430 C310 340 470 300 455 180 L475 180 C495 310 345 350 365 430 C400 580 220 610 260 800 Z" fill="#2c3b66"/><circle cx="90" cy="110" r="3" fill="#fff"/><circle cx="220" cy="70" r="2" fill="#fff"/><circle cx="520" cy="90" r="3" fill="#fff"/><circle cx="170" cy="470" r="60" fill="#ffcf6b" opacity=".18"/><rect x="156" y="448" width="28" height="40" fill="#ffcf6b"/><rect x="167" y="430" width="6" height="18" fill="#2a2a3a"/><circle cx="300" cy="360" r="48" fill="#ffcf6b" opacity=".18"/><rect x="289" y="342" width="22" height="32" fill="#ffcf6b"/><rect x="297" y="328" width="6" height="14" fill="#2a2a3a"/><circle cx="390" cy="270" r="37" fill="#ffcf6b" opacity=".18"/><rect x="381" y="256" width="17" height="25" fill="#ffcf6b"/><rect x="387" y="245" width="6" height="11" fill="#2a2a3a"/><circle cx="440" cy="205" r="29" fill="#ffcf6b" opacity=".18"/><rect x="433" y="194" width="13" height="19" fill="#ffcf6b"/><rect x="437" y="186" width="6" height="9" fill="#2a2a3a"/>
+<rect x="0" y="540" width="600" height="260" fill="url(#fade)"/>
+<rect x="546" y="44" width="10" height="10" fill="#ffcf6b"/>
+<text x="534" y="54" text-anchor="end" font-family="system-ui, 'Segoe UI', Roboto, Arial, sans-serif" font-weight="700" font-size="14" letter-spacing="4" fill="#fff" opacity=".8">FCG · EXEMPLO</text>
+<text x="44" y="700" font-family="system-ui, 'Segoe UI', Roboto, Arial, sans-serif" font-weight="900" font-size="60" letter-spacing="-1" fill="#fff">LANTERN PATH</text><rect x="44" y="730" width="56" height="5" fill="#ffcf6b"/>
+</svg>

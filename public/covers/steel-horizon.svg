@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" width="600" height="800" role="img" aria-label="Steel Horizon">
+<defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff8a3d"/><stop offset="1" stop-color="#6b2f1a"/></linearGradient>
+<linearGradient id="fade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".75"/></linearGradient></defs>
+<rect width="600" height="800" fill="url(#g)"/>
+<rect x="0" y="470" width="600" height="330" fill="#1c2733"/><rect x="0" y="466" width="600" height="4" fill="#9fc4e8" opacity=".6"/><rect x="250" y="160" width="110" height="90" fill="#5d7287"/><rect x="275" y="190" width="60" height="16" fill="#ffb000"/><rect x="215" y="250" width="180" height="120" fill="#46596c"/><rect x="150" y="260" width="60" height="140" fill="#5d7287"/><rect x="400" y="260" width="60" height="140" fill="#5d7287"/><rect x="460" y="300" width="70" height="22" fill="#3a4a5a"/><rect x="235" y="370" width="55" height="110" fill="#3a4a5a"/><rect x="320" y="370" width="55" height="110" fill="#3a4a5a"/>
+<rect x="0" y="540" width="600" height="260" fill="url(#fade)"/>
+<rect x="546" y="44" width="10" height="10" fill="#ffb000"/>
+<text x="534" y="54" text-anchor="end" font-family="system-ui, 'Segoe UI', Roboto, Arial, sans-serif" font-weight="700" font-size="14" letter-spacing="4" fill="#fff" opacity=".8">FCG · EXEMPLO</text>
+<text x="44" y="639" font-family="system-ui, 'Segoe UI', Roboto, Arial, sans-serif" font-weight="900" font-size="60" letter-spacing="-1" fill="#fff">STEEL</text><text x="44" y="700" font-family="system-ui, 'Segoe UI', Roboto, Arial, sans-serif" font-weight="900" font-size="60" letter-spacing="-1" fill="#fff">HORIZON</text><rect x="44" y="730" width="56" height="5" fill="#ffb000"/>
+</svg>

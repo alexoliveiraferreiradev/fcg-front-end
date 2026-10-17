@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" width="600" height="800" role="img" aria-label="Blade Saga">
+<defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7a0c1f"/><stop offset="1" stop-color="#14040a"/></linearGradient>
+<linearGradient id="fade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".75"/></linearGradient></defs>
+<rect width="600" height="800" fill="url(#g)"/>
+<path d="M60 520 A320 320 0 0 1 520 120" stroke="#fff" stroke-width="16" fill="none" opacity=".18"/><path d="M110 560 A300 300 0 0 1 560 190" stroke="#ff4d6d" stroke-width="6" fill="none" opacity=".7"/><path d="M140 520 L470 150 L482 162 L156 534 Z" fill="#e9ecef"/><path d="M470 150 L500 120 L482 162 Z" fill="#fff"/><rect x="118" y="512" width="60" height="14" transform="rotate(-48 148 519)" fill="#ff4d6d"/><rect x="86" y="548" width="56" height="18" transform="rotate(-48 114 557)" fill="#2b2d42"/>
+<rect x="0" y="540" width="600" height="260" fill="url(#fade)"/>
+<rect x="546" y="44" width="10" height="10" fill="#ff4d6d"/>
+<text x="534" y="54" text-anchor="end" font-family="system-ui, 'Segoe UI', Roboto, Arial, sans-serif" font-weight="700" font-size="14" letter-spacing="4" fill="#fff" opacity=".8">FCG · EXEMPLO</text>
+<text x="44" y="700" font-family="system-ui, 'Segoe UI', Roboto, Arial, sans-serif" font-weight="900" font-size="60" letter-spacing="-1" fill="#fff">BLADE SAGA</text><rect x="44" y="730" width="56" height="5" fill="#ff4d6d"/>
+</svg>

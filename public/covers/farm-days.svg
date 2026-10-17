@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" width="600" height="800" role="img" aria-label="Farm Days">
+<defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fd3ff"/><stop offset="1" stop-color="#f0c75e"/></linearGradient>
+<linearGradient id="fade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".75"/></linearGradient></defs>
+<rect width="600" height="800" fill="url(#g)"/>
+<circle cx="440" cy="190" r="70" fill="#ffe27a"/><path d="M0 430 Q300 370 600 430 V800 H0 Z" fill="#7cb342"/><path d="M-40 470 Q300 430 640 470" stroke="#2f5d1f" stroke-width="10" fill="none" opacity=".55"/><path d="M-40 496 Q300 460 640 496" stroke="#2f5d1f" stroke-width="10" fill="none" opacity=".55"/><path d="M-40 522 Q300 490 640 522" stroke="#2f5d1f" stroke-width="10" fill="none" opacity=".55"/><path d="M-40 548 Q300 520 640 548" stroke="#2f5d1f" stroke-width="10" fill="none" opacity=".55"/><path d="M-40 574 Q300 550 640 574" stroke="#2f5d1f" stroke-width="10" fill="none" opacity=".55"/><rect x="110" y="300" width="150" height="130" fill="#c0392b"/><path d="M95 305 L185 230 L275 305 Z" fill="#8e2a20"/><rect x="160" y="360" width="50" height="70" fill="#fff" opacity=".85"/><path d="M160 360 L210 430 M210 360 L160 430" stroke="#c0392b" stroke-width="6"/>
+<rect x="0" y="540" width="600" height="260" fill="url(#fade)"/>
+<rect x="546" y="44" width="10" height="10" fill="#ffe27a"/>
+<text x="534" y="54" text-anchor="end" font-family="system-ui, 'Segoe UI', Roboto, Arial, sans-serif" font-weight="700" font-size="14" letter-spacing="4" fill="#fff" opacity=".8">FCG · EXEMPLO</text>
+<text x="44" y="700" font-family="system-ui, 'Segoe UI', Roboto, Arial, sans-serif" font-weight="900" font-size="60" letter-spacing="-1" fill="#fff">FARM DAYS</text><rect x="44" y="730" width="56" height="5" fill="#ffe27a"/>
+</svg>
