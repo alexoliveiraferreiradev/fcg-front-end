@@ -54,7 +54,7 @@
   box-shadow: var(--shadow-lift);
 }
 .promo__cover .cover {
-  transition: transform 0.6s var(--ease-out);
+  transition: transform 0.3s var(--ease-out);
 }
 .promo:hover .promo__cover .cover {
   transform: scale(1.04);
@@ -201,7 +201,8 @@
 .promotions__strip {
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: minmax(260px, 300px);
+  /* Com poucas promoções os cards dividem a linha; com muitas, rolam a partir de 260px. */
+  grid-auto-columns: minmax(260px, 1fr);
   gap: var(--s3);
   overflow-x: auto;
   overscroll-behavior-x: contain;

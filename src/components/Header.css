@@ -233,18 +233,22 @@
   }
 }
 
-@media (max-width: 860px) {
+/* Entre 721 e 960px os links continuam visíveis; o subtítulo e o rótulo do carrinho saem para caber. */
+@media (max-width: 960px) {
   .header__inner {
     gap: var(--s3);
-  }
-  .header__menu {
-    display: grid;
   }
   .logo__name {
     display: none;
   }
   .header__cart-label {
     display: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .header__menu {
+    display: grid;
   }
   .header__nav {
     position: absolute;

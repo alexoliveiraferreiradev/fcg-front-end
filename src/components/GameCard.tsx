@@ -29,7 +29,7 @@ export function GameCard({ game, onOpen, eager }: Props) {
         <div className="game-card__row">
           <Price current={game.currentPrice} original={game.originalPrice} />
           <div className="game-card__action">
-            <GameAction game={game} />
+            <GameAction game={game} tone="ghost" />
           </div>
         </div>
       </div>

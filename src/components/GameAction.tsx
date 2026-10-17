@@ -38,9 +38,11 @@ interface Props {
   game: GameView
   size?: 'sm' | 'md'
   block?: boolean
+  /** Ghost no grid do catálogo, para o rosa ficar só nas promoções e no painel. */
+  tone?: 'outline' | 'ghost'
 }
 
-export function GameAction({ game, size = 'sm', block = false }: Props) {
+export function GameAction({ game, size = 'sm', block = false, tone = 'outline' }: Props) {
   const { state, add } = useGameAction(game)
   const cls = `${size === 'sm' ? ' btn--sm' : ''}${block ? ' btn--block' : ''}`
 
@@ -61,7 +63,7 @@ export function GameAction({ game, size = 'sm', block = false }: Props) {
       )
     case 'add':
       return (
-        <button type="button" className={`btn btn--outline${cls}`} onClick={add} aria-label={`Adicionar ${game.name} ao carrinho`}>
+        <button type="button" className={`btn btn--${tone}${cls}`} onClick={add} aria-label={`Adicionar ${game.name} ao carrinho`}>
           <PlusIcon /> Carrinho
         </button>
       )
