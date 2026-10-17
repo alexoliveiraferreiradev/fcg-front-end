@@ -16,6 +16,8 @@ export interface ToastInput {
 
 interface ToastItem extends ToastInput {
   id: number
+  /** Animando a saída (0.2s no CSS); sai da lista logo depois. */
+  leaving?: boolean
 }
 
 interface ToastValue {
@@ -28,7 +30,10 @@ export function ToastProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<ToastItem[]>([])
   const nextId = useRef(1)
 
-  const dismiss = useCallback((id: number) => setItems((list) => list.filter((t) => t.id !== id)), [])
+  const dismiss = useCallback((id: number) => {
+    setItems((list) => list.map((t) => (t.id === id ? { ...t, leaving: true } : t)))
+    window.setTimeout(() => setItems((list) => list.filter((t) => t.id !== id)), 200)
+  }, [])
 
   const show = useCallback(
     (t: ToastInput) => {
@@ -46,7 +51,11 @@ export function ToastProvider({ children }: { children: ReactNode }) {
       {children}
       <div className="toasts" role="region" aria-label="Avisos" aria-live="polite">
         {items.map((t) => (
-          <div key={t.id} className={`toast toast--${t.tone}`} role={t.tone === 'error' ? 'alert' : 'status'}>
+          <div
+            key={t.id}
+            className={`toast toast--${t.tone}${t.leaving ? ' toast--leaving' : ''}`}
+            role={t.tone === 'error' ? 'alert' : 'status'}
+          >
             <span className="toast__mark">{t.tone === 'error' ? <AlertIcon /> : <CheckIcon />}</span>
             <div className="toast__body">
               <strong>{t.title}</strong>

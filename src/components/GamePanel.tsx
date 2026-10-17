@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { GameView } from '../lib/game'
 import { genreLabel } from '../lib/game'
 import { formatDayMonth } from '../lib/format'
@@ -8,6 +8,8 @@ import { Price } from './Price'
 import { ClockIcon, CloseIcon } from './Icons'
 import './GamePanel.css'
 
+const EXIT_MS = 200
+
 interface Props {
   game: GameView | null
   onClose: () => void
@@ -15,23 +17,42 @@ interface Props {
 
 /**
  * Painel lateral de detalhe. <dialog> modal dá foco preso, Esc e devolve o foco ao card ao fechar.
+ * Ao fechar, mantém o último jogo na tela até a animação de saída terminar.
  */
-export function GamePanel({ game, onClose }: Props) {
+export function GamePanel({ game: current, onClose }: Props) {
   const ref = useRef<HTMLDialogElement>(null)
+  const [shown, setShown] = useState(current)
+  if (current && current !== shown) setShown(current)
+  const closing = !current && shown !== null
+  const game = current ?? shown
 
   useEffect(() => {
     const dialog = ref.current
-    if (!dialog) return
-    if (game && !dialog.open) dialog.showModal()
-    if (!game && dialog.open) dialog.close()
-  }, [game])
+    if (current && dialog && !dialog.open) dialog.showModal()
+  }, [current])
+
+  // Fecha depois da saída (0.2s no CSS). Timer em vez de animationend: numa aba em segundo plano
+  // a animação não avança e o dialog modal ficaria aberto, travando a página.
+  useEffect(() => {
+    if (!closing) return
+    const timer = window.setTimeout(() => {
+      ref.current?.close()
+      setShown(null)
+    }, EXIT_MS)
+    return () => window.clearTimeout(timer)
+  }, [closing])
 
   return (
     <dialog
       ref={ref}
-      className="panel"
+      className={`panel${closing ? ' panel--closing' : ''}`}
       aria-labelledby="panel-title"
       onClose={onClose}
+      onCancel={(e) => {
+        // Esc: em vez de fechar na hora, deixa a saída animar.
+        e.preventDefault()
+        onClose()
+      }}
       onClick={(e) => {
         // Clique no fundo (fora da folha) fecha.
         if (e.target === e.currentTarget) onClose()

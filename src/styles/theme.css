@@ -195,7 +195,12 @@ h3 {
   transition:
     background-color 0.15s,
     border-color 0.15s,
-    color 0.15s;
+    color 0.15s,
+    transform 0.1s ease-out;
+}
+/* Resposta física ao clique. */
+.btn:active:not(:disabled) {
+  transform: scale(0.97);
 }
 .btn:hover {
   background: var(--accent-fill-hover);

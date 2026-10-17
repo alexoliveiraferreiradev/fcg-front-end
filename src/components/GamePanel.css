@@ -18,6 +18,13 @@
 .panel[open] .panel__sheet {
   animation: panel-in 0.42s var(--ease-out);
 }
+/* Saída mais curta que a entrada; o GamePanel fecha o dialog depois de EXIT_MS. */
+.panel.panel--closing .panel__sheet {
+  animation: panel-out 0.2s ease-in forwards;
+}
+.panel--closing::backdrop {
+  animation: panel-fade-out 0.2s ease-in forwards;
+}
 
 .panel__sheet {
   position: relative;
@@ -144,6 +151,17 @@
 }
 @keyframes panel-fade {
   from {
+    opacity: 0;
+  }
+}
+@keyframes panel-out {
+  to {
+    transform: translateX(48px);
+    opacity: 0;
+  }
+}
+@keyframes panel-fade-out {
+  to {
     opacity: 0;
   }
 }
