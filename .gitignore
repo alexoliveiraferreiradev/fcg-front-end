@@ -150,3 +150,13 @@ dist
 
 # Ferramentas locais do Claude Code (skill, agentes, configurações pessoais)
 .claude/
+
+# Docs, skills e instruções de IA (não versionados)
+/docs/
+/DESIGN.md
+/PRODUCT.md
+/CAPABILITY-MAP-*.md
+/.impeccable/
+/skills-lock.json
+/CLAUDE.md
+/AGENTS.md
