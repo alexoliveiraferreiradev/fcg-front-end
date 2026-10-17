@@ -68,6 +68,13 @@ export interface GamePromotionResponse {
   coverUrl?: string | null
 }
 
+/** GET /catalog/games/covers?ids=... (inclui jogos desativados) */
+export interface GameCoverResponse {
+  gameId: string
+  name: string
+  coverUrl: string | null
+}
+
 /** GET /library */
 export interface UserLibraryItemResponse {
   gameId: string
@@ -91,6 +98,19 @@ export interface LoginResponse {
   email: string
   claims: ClaimResponse[]
   perfilUser: UserRole
+}
+
+/** GET /my-account/ (dados do próprio usuário; perfil e id ficam na sessão) */
+export interface UserAccountResponse {
+  name: string
+  email: string
+}
+
+/** PUT /my-account/update: o back-end exige nome, senha e confirmação juntos. */
+export interface UpdateAccountRequest {
+  name: string
+  password: string
+  confirmPassword: string
 }
 
 export interface RegisterUserCommand {
