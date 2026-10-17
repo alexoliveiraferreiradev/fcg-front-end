@@ -1,13 +1,15 @@
 import type { IncomingMessage, ServerResponse } from 'node:http'
 import type { Plugin } from 'vite'
-import { games, ownedIds, type MockGame } from './data.ts'
+import { games, orphan, owned, type MockGame } from './data.ts'
 
 // Simula as rotas do Kong usadas pelo front, só em `npm run dev:mock`.
 // Login: qualquer e-mail/senha; e-mail com "admin" entra como Admin; senha "errada" devolve 401.
-// MOCK_PROMOS=0..5 limita quantas promoções aparecem (para testar o destaque); MOCK_LATENCY em ms.
+// MOCK_PROMOS=0..5 limita quantas promoções aparecem (para testar o destaque); MOCK_LIBRARY=0..14 limita a biblioteca
+// (0 testa a biblioteca vazia); MOCK_LATENCY em ms.
 
 const LATENCY = Number(process.env.MOCK_LATENCY ?? 350)
 const PROMO_LIMIT = process.env.MOCK_PROMOS === undefined ? Infinity : Number(process.env.MOCK_PROMOS)
+const LIBRARY_LIMIT = process.env.MOCK_LIBRARY === undefined ? Infinity : Number(process.env.MOCK_LIBRARY)
 
 function send(res: ServerResponse, status: number, body?: unknown) {
   res.statusCode = status
@@ -69,18 +71,46 @@ function toPromotion(g: MockGame, i: number) {
   }
 }
 
-function token(role: string) {
-  return `mock.${Buffer.from(JSON.stringify({ role })).toString('base64url')}.sig`
+// Como o token real, o payload leva unique_name (o front mostra no cabeçalho).
+function token(role: string, email: string) {
+  return `mock.${Buffer.from(JSON.stringify({ role, email, unique_name: accountName(email) })).toString('base64url')}.sig`
 }
 
-function roleFrom(req: IncomingMessage): string | null {
+function claimsFrom(req: IncomingMessage): { role: string; email: string } | null {
   const auth = req.headers.authorization
   if (!auth?.startsWith('Bearer mock.')) return null
   try {
-    return JSON.parse(Buffer.from(auth.split('.')[1], 'base64url').toString()).role
+    return JSON.parse(Buffer.from(auth.split('.')[1], 'base64url').toString())
   } catch {
     return null
   }
+}
+
+function roleFrom(req: IncomingMessage): string | null {
+  return claimsFrom(req)?.role ?? null
+}
+
+// Minha conta em memória: nome por e-mail e contas desativadas (que não entram mais). Some ao reiniciar o Vite.
+const accountNames = new Map<string, string>()
+const deactivated = new Set<string>()
+const accountName = (email: string) => accountNames.get(email) ?? (email.includes('admin') ? 'Admin de Exemplo' : 'Player de Exemplo')
+
+// Mesmas regras do UpdateUserCommandValidator; erros com chave em PascalCase, como a API.
+function accountErrors(body: Record<string, string>): Record<string, string[]> {
+  const errors: Record<string, string[]> = {}
+  const name = (body.name ?? '').trim()
+  if (name.length < 3 || name.length > 50) errors.Name = ['O nome do usuário deve conter entre 3 e 50 caracteres.']
+  const p = body.password ?? ''
+  const pw: string[] = []
+  if (p.length < 8 || p.length > 60) pw.push('A senha deve ter entre 8 e 60 caracteres.')
+  if (!/[A-Z]/.test(p)) pw.push('A senha deve conter uma letra maiúscula.')
+  if (!/[a-z]/.test(p)) pw.push('A senha deve conter uma letra minúscula.')
+  if (!/[0-9]/.test(p)) pw.push('A senha deve conter um número.')
+  if (!/[!?*.@]/.test(p)) pw.push('A senha deve conter um caractere especial.')
+  if (pw.length) errors.Password = pw
+  if (!body.confirmPassword) errors.ConfirmPassword = ['A confirmação de senha do usuário é obrigatória.']
+  else if (body.confirmPassword !== p) errors.ConfirmPassword = ['A senha e a confirmação de senha devem ser iguais.']
+  return errors
 }
 
 export function mockApi(): Plugin {
@@ -108,14 +138,49 @@ export function mockApi(): Plugin {
           return send(res, 200, paged(list, page, pageSize))
         }
 
+        if (req.method === 'GET' && path === '/catalog/games/covers') {
+          const ids = url.searchParams.getAll('ids')
+          if (ids.length === 0 || new Set(ids).size > 50) {
+            return send(res, 400, { title: 'One or more validation errors occurred.', status: 400, errors: { ids: [ids.length === 0 ? 'Informe ao menos um id de jogo.' : 'Informe no máximo 50 ids de jogo por consulta.'] } })
+          }
+          const found = games.filter((g) => ids.includes(g.id)).map((g) => ({ gameId: g.id, name: g.name, coverUrl: g.coverUrl ?? null }))
+          return send(res, 200, found)
+        }
+
         if (req.method === 'GET' && path === '/library') {
           const role = roleFrom(req)
           if (!role) return send(res, 401)
-          const items = ownedIds.map((gid) => {
-            const g = games.find((x) => x.id === gid)!
-            return { gameId: g.id, gameName: g.name, description: g.description, genre: g.genre, acquiredAt: '2026-10-12T09:45:00Z' }
-          })
+          if (role !== 'Player') return send(res, 403)
+          const items = [
+            ...owned.map(({ id, acquiredAt }) => {
+              const g = games.find((x) => x.id === id)!
+              return { gameId: g.id, gameName: g.name, description: g.description, genre: g.genre, acquiredAt }
+            }),
+            orphan,
+          ].slice(0, LIBRARY_LIMIT)
+          // Como a UserLibrary: biblioteca vazia responde 404.
+          if (items.length === 0) return send(res, 404)
           return send(res, 200, paged(items, page, pageSize))
+        }
+
+        if (path === '/my-account' || path === '/my-account/' || path.startsWith('/my-account/')) {
+          const claims = claimsFrom(req)
+          if (!claims) return send(res, 401)
+          const { email } = claims
+          if (req.method === 'GET' && (path === '/my-account' || path === '/my-account/')) {
+            return send(res, 200, { name: accountName(email), email })
+          }
+          if (req.method === 'PUT' && path === '/my-account/update') {
+            const body = await readJson(req)
+            const errors = accountErrors(body)
+            if (Object.keys(errors).length) return send(res, 400, { title: 'One or more validation errors occurred.', status: 400, errors })
+            accountNames.set(email, body.name.trim())
+            return send(res, 200, { name: body.name.trim(), email })
+          }
+          if (req.method === 'PUT' && path === '/my-account/deactivate-account') {
+            deactivated.add(email)
+            return send(res, 204)
+          }
         }
 
         if (req.method === 'POST' && path === '/user/sign-in') {
@@ -123,10 +188,10 @@ export function mockApi(): Plugin {
           if (!body.email || !body.password) {
             return send(res, 400, { title: 'One or more validation errors occurred.', status: 400, errors: { Email: !body.email ? ['O e-mail é obrigatório.'] : [], Password: !body.password ? ['A senha é obrigatória.'] : [] } })
           }
-          if (body.password === 'errada') return send(res, 401)
+          if (body.password === 'errada' || deactivated.has(body.email)) return send(res, 401)
           const role = body.email.includes('admin') ? 'Admin' : 'Player'
           return send(res, 200, {
-            acessToken: token(role),
+            acessToken: token(role, body.email),
             expiresIn: 3600,
             id: role === 'Admin' ? 'admin-0001' : 'player-0001',
             email: body.email,

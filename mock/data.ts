@@ -44,5 +44,28 @@ export const games: MockGame[] = [
   { id: id(26), name: 'Blade Saga', genre: 'Action', originalPrice: 59.9, coverUrl: '/covers/blade-saga.svg', description: 'Hack and slash com combos aéreos e trilha de rock.' },
 ]
 
-/** Jogos que o Player de exemplo já tem na biblioteca. */
-export const ownedIds = [id(4), id(9)]
+/** Biblioteca do Player de exemplo: 14 jogos (paginação com 12 por página), Farm Days sem capa. */
+export const owned: { id: string; acquiredAt: string }[] = [
+  { id: id(4), acquiredAt: '2026-10-12T09:45:00Z' },
+  { id: id(9), acquiredAt: '2026-10-12T09:45:00Z' },
+  { id: id(6), acquiredAt: '2026-10-10T21:03:00Z' },
+  { id: id(15), acquiredAt: '2026-10-08T18:20:00Z' },
+  { id: id(2), acquiredAt: '2026-10-05T12:00:00Z' },
+  { id: id(18), acquiredAt: '2026-10-03T08:30:00Z' },
+  { id: id(21), acquiredAt: '2026-09-28T22:10:00Z' },
+  { id: id(13), acquiredAt: '2026-09-21T14:45:00Z' },
+  { id: id(24), acquiredAt: '2026-09-15T10:00:00Z' },
+  { id: id(7), acquiredAt: '2026-09-02T19:30:00Z' },
+  { id: id(17), acquiredAt: '2026-08-27T16:15:00Z' },
+  { id: id(25), acquiredAt: '2026-08-20T11:05:00Z' },
+  { id: id(11), acquiredAt: '2026-08-14T09:00:00Z' },
+]
+
+/** Jogo comprado que não existe mais no catálogo (como depois de zerar o banco do Catalog): só a biblioteca o conhece. */
+export const orphan = {
+  gameId: '99999999-0000-4000-8000-000000000001',
+  gameName: 'Jogo Removido do Catalogo',
+  description: 'Comprado antes de o catálogo ser recriado. O Catalog não conhece mais este id.',
+  genre: 'Adventure',
+  acquiredAt: '2026-07-30T13:00:00Z',
+}
