@@ -1,17 +1,23 @@
 import { useEffect, useRef, useState } from 'react'
 import type { GameView } from '../lib/game'
+import type { LibraryGame } from '../lib/library'
 import { genreLabel } from '../lib/game'
-import { formatDayMonth } from '../lib/format'
+import { formatDate, formatDayMonth } from '../lib/format'
 import { GameCover } from './GameCover'
 import { GameAction } from './GameAction'
 import { Price } from './Price'
-import { ClockIcon, CloseIcon } from './Icons'
+import { CheckIcon, ClockIcon, CloseIcon } from './Icons'
 import './GamePanel.css'
 
 const EXIT_MS = 200
 
+/** Jogo da loja (preço e ação de compra) ou da biblioteca (data de aquisição). */
+export type PanelGame = GameView | LibraryGame
+
+const isLibraryGame = (game: PanelGame): game is LibraryGame => 'acquiredAt' in game
+
 interface Props {
-  game: GameView | null
+  game: PanelGame | null
   onClose: () => void
 }
 
@@ -67,24 +73,32 @@ export function GamePanel({ game: current, onClose }: Props) {
           </div>
           <div className="panel__cover">
             <GameCover name={game.name} coverUrl={game.coverUrl} eager />
-            {game.discount !== null && <span className="discount-tag panel__tag">-{game.discount}%</span>}
+            {!isLibraryGame(game) && game.discount !== null && <span className="discount-tag panel__tag">-{game.discount}%</span>}
           </div>
           <div className="panel__body">
             <h2 id="panel-title" className="panel__name">
               {game.name}
             </h2>
             <p className="panel__genre">{genreLabel(game.genre)}</p>
-            <div className="panel__deal">
-              <Price current={game.currentPrice} original={game.originalPrice} className="panel__price" />
-              {game.endDate && (
-                <span className="panel__until">
-                  <ClockIcon /> Promoção até {formatDayMonth(game.endDate)}
-                </span>
-              )}
-            </div>
-            <div className="panel__action">
-              <GameAction game={game} size="md" block />
-            </div>
+            {isLibraryGame(game) ? (
+              <p className="panel__owned">
+                <CheckIcon /> Na biblioteca desde {formatDate(game.acquiredAt)}
+              </p>
+            ) : (
+              <>
+                <div className="panel__deal">
+                  <Price current={game.currentPrice} original={game.originalPrice} className="panel__price" />
+                  {game.endDate && (
+                    <span className="panel__until">
+                      <ClockIcon /> Promoção até {formatDayMonth(game.endDate)}
+                    </span>
+                  )}
+                </div>
+                <div className="panel__action">
+                  <GameAction game={game} size="md" block />
+                </div>
+              </>
+            )}
             {game.description ? (
               <p className="panel__desc">{game.description}</p>
             ) : (

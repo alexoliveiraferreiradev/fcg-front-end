@@ -11,6 +11,13 @@ export function formatDayMonth(iso: string): string {
   return d.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' })
 }
 
+/** "12/10/2026" */
+export function formatDate(iso: string): string {
+  const d = new Date(iso)
+  if (Number.isNaN(d.getTime())) return ''
+  return d.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' })
+}
+
 /** Texto para leitor de tela: "de R$ 99,90 por R$ 59,94". */
 export function priceSpeech(current: number, original: number | null): string {
   if (original === null) return formatPrice(current)

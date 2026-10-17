@@ -131,6 +131,19 @@
 .panel__action:empty {
   display: none;
 }
+.panel__owned {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: var(--s1) 0 var(--s3);
+  color: var(--ok);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+.panel__owned svg {
+  width: 16px;
+  height: 16px;
+}
 .panel__desc {
   max-width: 65ch;
   color: rgb(255 255 255 / 0.82);
