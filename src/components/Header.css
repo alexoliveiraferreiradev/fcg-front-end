@@ -152,7 +152,7 @@
   gap: var(--s2);
   min-width: 0;
 }
-.user-menu__email {
+.user-menu__name {
   max-width: 22ch;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -228,7 +228,14 @@
 }
 
 @media (max-width: 1080px) {
-  .user-menu__email {
+  .user-menu__name {
+    max-width: 16ch;
+  }
+}
+
+/* Celular estreito: só o ícone; o nome segue no title e em Minha conta. */
+@media (max-width: 480px) {
+  .user-menu__name {
     display: none;
   }
 }

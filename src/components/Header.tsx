@@ -31,7 +31,7 @@ function CartLink() {
 }
 
 function UserMenu() {
-  const { user, logout } = useAuth()
+  const { user, isAdmin, logout } = useAuth()
   const [open, setOpen] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
 
@@ -68,8 +68,11 @@ function UserMenu() {
       >
         <UserIcon />
         <span className="user-menu__who">
-          <span className="user-menu__email">{user.email}</span>
-          <span className={`user-menu__role user-menu__role--${user.perfilUser.toLowerCase()}`}>{user.perfilUser}</span>
+          <span className="user-menu__name" title={user.email}>
+            {user.name}
+          </span>
+          {/* Só o Admin ganha selo; para o Player o perfil é o padrão e não precisa aparecer. */}
+          {isAdmin && <span className="user-menu__role user-menu__role--admin">Admin</span>}
         </span>
         <ChevronDownIcon className="user-menu__chev" />
       </button>
