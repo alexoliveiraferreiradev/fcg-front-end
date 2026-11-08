@@ -49,6 +49,9 @@ export interface GameUserResponse {
   originalPrice?: number
   /** Parte A */
   coverUrl?: string | null
+  /** Média das notas (0 a 5, uma casa); null enquanto ninguém avaliou. Ausente antes da avaliação no Catalog. */
+  averageRating?: number | null
+  ratingCount?: number
 }
 
 /** GET /catalog/games/promoted */
@@ -66,6 +69,9 @@ export interface GamePromotionResponse {
   endDate?: string
   /** Parte A */
   coverUrl?: string | null
+  /** Média das notas (0 a 5, uma casa); null enquanto ninguém avaliou. Ausente antes da avaliação no Catalog. */
+  averageRating?: number | null
+  ratingCount?: number
 }
 
 /** GET /catalog/games/covers?ids=... (inclui jogos desativados) */
@@ -73,6 +79,8 @@ export interface GameCoverResponse {
   gameId: string
   name: string
   coverUrl: string | null
+  /** false quando o jogo saiu da loja. Ausente em Catalog antigo. */
+  isActive?: boolean
 }
 
 /** GET /library */
@@ -82,6 +90,13 @@ export interface UserLibraryItemResponse {
   description: string
   genre: string
   acquiredAt: string
+  /** Nota do próprio Player (0 a 5); null enquanto ele não avaliou. Ausente antes da avaliação na UserLibrary. */
+  rating?: number | null
+}
+
+/** PUT /library/{gameId}/rating: o jogo vem da rota e o usuário do token. */
+export interface RateGameRequest {
+  rating: number
 }
 
 export interface ClaimResponse {

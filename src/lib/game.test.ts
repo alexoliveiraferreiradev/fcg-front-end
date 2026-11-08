@@ -22,6 +22,13 @@ describe('fromCatalog', () => {
   it('degrada sem originalPrice (Catalog antes da Parte A)', () => {
     expect(fromCatalog(base)).toMatchObject({ originalPrice: null, discount: null, coverUrl: null })
   })
+  it('leva a média e a quantidade de avaliações', () => {
+    expect(fromCatalog({ ...base, averageRating: 4.3, ratingCount: 12 })).toMatchObject({ averageRating: 4.3, ratingCount: 12 })
+    expect(fromCatalog({ ...base, averageRating: null, ratingCount: 0 })).toMatchObject({ averageRating: null, ratingCount: 0 })
+  })
+  it('sem os campos de avaliação, não sabe a quantidade (Catalog antes da avaliação)', () => {
+    expect(fromCatalog(base)).toMatchObject({ averageRating: null, ratingCount: null })
+  })
 })
 
 describe('promoções', () => {
@@ -30,6 +37,12 @@ describe('promoções', () => {
 
   it('sem gameId não dá para pôr no carrinho', () => {
     expect(p('A', 10).id).toBeNull()
+  })
+
+  it('leva a média e a quantidade de avaliações; sem os campos, não sabe a quantidade', () => {
+    const base = { promotionId: 'x', name: 'X', description: '', originalPrice: 100, currentPrice: 60, genre: 'RPG' as const, discountPercentage: 40 }
+    expect(fromPromotion({ ...base, averageRating: 4.6, ratingCount: 214 })).toMatchObject({ averageRating: 4.6, ratingCount: 214 })
+    expect(fromPromotion(base)).toMatchObject({ averageRating: null, ratingCount: null })
   })
   it('ordena por maior desconto, depois fim mais próximo', () => {
     const sorted = sortPromotions([p('A', 10), p('B', 50, '2026-11-01'), p('C', 50, '2026-10-20')])

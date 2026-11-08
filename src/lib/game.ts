@@ -14,6 +14,10 @@ export interface GameView {
   discount: number | null
   coverUrl: string | null
   endDate: string | null
+  /** Média do Catalog (0 a 5); null sem avaliações ou quando a resposta não traz a média. */
+  averageRating: number | null
+  /** null quando a resposta não informa (Catalog antes da avaliação): a tela não diz "sem avaliações" sem saber. */
+  ratingCount: number | null
 }
 
 export function discountPercent(original: number, current: number): number | null {
@@ -34,6 +38,8 @@ export function fromCatalog(g: GameUserResponse): GameView {
     discount: original === null ? null : discountPercent(original, g.currentPrice),
     coverUrl: g.coverUrl || null,
     endDate: null,
+    averageRating: typeof g.averageRating === 'number' ? g.averageRating : null,
+    ratingCount: typeof g.ratingCount === 'number' ? g.ratingCount : null,
   }
 }
 
@@ -49,6 +55,8 @@ export function fromPromotion(p: GamePromotionResponse): GameView {
     discount: discount || null,
     coverUrl: p.coverUrl || null,
     endDate: p.endDate ?? null,
+    averageRating: typeof p.averageRating === 'number' ? p.averageRating : null,
+    ratingCount: typeof p.ratingCount === 'number' ? p.ratingCount : null,
   }
 }
 
