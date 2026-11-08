@@ -1,0 +1,168 @@
+/* Avaliação: estrelas no rosa de texto (6:1 sobre preto), vazias no traço forte. */
+
+.stars {
+  display: inline-flex;
+  gap: 2px;
+  color: var(--accent-ink);
+}
+.stars svg {
+  width: 14px;
+  height: 14px;
+  flex: none;
+}
+.stars .stars__off {
+  color: var(--line-strong);
+}
+
+/* Média compacta do card */
+.rating-avg {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s1);
+  margin-top: var(--s1);
+  font-size: var(--text-sm);
+  font-weight: 700;
+}
+.rating-avg__star {
+  width: 13px;
+  height: 13px;
+  flex: none;
+  color: var(--accent-ink);
+}
+.rating-avg__count {
+  color: var(--muted);
+  font-weight: 400;
+}
+
+/* Média do painel */
+.rating-summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s1) var(--s2);
+  font-size: var(--text-sm);
+}
+.rating-summary .stars svg {
+  width: 16px;
+  height: 16px;
+}
+.rating-summary__value {
+  font-size: var(--text-md);
+  font-weight: 800;
+}
+.rating-summary__count {
+  color: var(--muted);
+}
+.rating-summary--empty {
+  color: var(--faint);
+}
+
+/* Nota do Player na biblioteca */
+.rate {
+  display: grid;
+  gap: var(--s2);
+  padding: var(--s4);
+  border: 1px solid var(--line);
+  background: var(--bg);
+}
+.rate__field {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+.rate__legend {
+  padding: 0;
+  margin-bottom: var(--s2);
+  color: var(--muted);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: var(--track-caps);
+  text-transform: uppercase;
+}
+.rate__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s3);
+}
+.rate__stars {
+  display: inline-flex;
+}
+.rate__star {
+  display: grid;
+  place-items: center;
+  /* Alvo de toque de 40px para cada estrela. */
+  width: 40px;
+  height: 40px;
+  color: var(--line-strong);
+  cursor: pointer;
+  transition:
+    color 0.12s,
+    transform 0.12s var(--ease-out);
+}
+.rate__star svg {
+  width: 26px;
+  height: 26px;
+}
+.rate__star--on {
+  color: var(--accent-ink);
+}
+.rate__star:hover {
+  transform: scale(1.12);
+}
+.rate__star:has(input:focus-visible) {
+  outline: 2px solid var(--accent-ink);
+  outline-offset: -2px;
+}
+.rate__field:disabled .rate__star {
+  cursor: progress;
+  opacity: 0.6;
+}
+.rate__field:disabled .rate__star:hover {
+  transform: none;
+}
+
+.rate__hint {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted);
+  font-size: var(--text-sm);
+}
+.rate__hint svg {
+  width: 14px;
+  height: 14px;
+  flex: none;
+}
+.rate__hint--ok {
+  color: var(--ok);
+}
+.rate__error {
+  color: var(--danger);
+  font-size: var(--text-sm);
+}
+
+/* Nota do Player no card da biblioteca */
+.my-rating {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  /* Mesma altura com estrelas ou com "Sem avaliação", para as datas alinharem entre os cards. */
+  min-height: 20px;
+  margin-top: var(--s1);
+  color: var(--muted);
+  font-size: var(--text-sm);
+}
+.my-rating--none {
+  color: var(--faint);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rate__star,
+  .rate__star:hover {
+    transition: none;
+    transform: none;
+  }
+}

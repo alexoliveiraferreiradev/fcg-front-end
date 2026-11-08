@@ -4,6 +4,7 @@ import { formatDayMonth } from '../lib/format'
 import { GameCover } from './GameCover'
 import { GameAction } from './GameAction'
 import { Price } from './Price'
+import { RatingAverage } from './Rating'
 import { ClockIcon } from './Icons'
 import './Promotions.css'
 
@@ -37,6 +38,7 @@ function PromoCard({ game, variant, onOpen }: { game: GameView; variant: Variant
             {game.description && <span className="promo__desc">{game.description}</span>}
           </p>
         )}
+        <RatingAverage average={game.averageRating} count={game.ratingCount} />
         <div className="promo__deal">
           <Price current={game.currentPrice} original={game.originalPrice} className="promo__price" />
           {until && (
