@@ -1,7 +1,9 @@
 import type { LibraryGame } from '../lib/library'
 import { genreLabel } from '../lib/game'
 import { formatDate } from '../lib/format'
+import { formatRating, RATING_MAX } from '../lib/rating'
 import { GameCover } from './GameCover'
+import { Stars } from './Rating'
 import './GameCard.css'
 
 interface Props {
@@ -17,6 +19,7 @@ export function LibraryCard({ game, onOpen, coverPending, eager }: Props) {
     <article className="game-card">
       <div className={`game-card__cover${coverPending ? ' skeleton' : ''}`}>
         {!coverPending && <GameCover name={game.name} coverUrl={game.coverUrl} eager={eager} />}
+        {game.offStore && <span className="off-store-tag game-card__tag">Fora da loja</span>}
       </div>
       <div className="game-card__body">
         <h3 className="game-card__name">
@@ -29,6 +32,16 @@ export function LibraryCard({ game, onOpen, coverPending, eager }: Props) {
         <p className="game-card__acquired">
           Adquirido em <time dateTime={game.acquiredAt}>{formatDate(game.acquiredAt)}</time>
         </p>
+        {game.rating === null ? (
+          <p className="my-rating my-rating--none">Sem avaliação</p>
+        ) : (
+          <p className="my-rating">
+            <Stars value={game.rating} />
+            <span className="sr-only">
+              Sua nota: {formatRating(game.rating)} de {RATING_MAX}
+            </span>
+          </p>
+        )}
       </div>
     </article>
   )

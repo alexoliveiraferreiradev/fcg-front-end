@@ -8,20 +8,32 @@ export interface LibraryGame {
   genre: string
   coverUrl: string | null
   acquiredAt: string
+  /** Nota do próprio Player (0 a 5); null enquanto ele não avaliou. */
+  rating: number | null
+  /** Saiu da loja (desativado ou o Catalog não conhece mais o id): continua na biblioteca, só não se compra mais. */
+  offStore: boolean
 }
 
-/** Junta os itens de /library com as capas do Catalog; mais recentes primeiro, empate pelo nome. */
-export function toLibraryGames(items: UserLibraryItemResponse[], covers: GameCoverResponse[] = []): LibraryGame[] {
-  const coverById = new Map(covers.map((c) => [c.gameId, c.coverUrl]))
+/**
+ * Junta os itens de /library com as capas do Catalog; mais recentes primeiro, empate pelo nome.
+ * Sem `covers` (carregando ou falhou) não dá para saber se o jogo saiu da loja: fica como na loja.
+ */
+export function toLibraryGames(items: UserLibraryItemResponse[], covers?: GameCoverResponse[]): LibraryGame[] {
+  const coverById = new Map((covers ?? []).map((c) => [c.gameId, c]))
   return items
-    .map((item) => ({
-      id: item.gameId,
-      name: item.gameName,
-      description: item.description,
-      genre: item.genre,
-      coverUrl: coverById.get(item.gameId) || null,
-      acquiredAt: item.acquiredAt,
-    }))
+    .map((item) => {
+      const cover = coverById.get(item.gameId)
+      return {
+        id: item.gameId,
+        name: item.gameName,
+        description: item.description,
+        genre: item.genre,
+        coverUrl: cover?.coverUrl || null,
+        acquiredAt: item.acquiredAt,
+        rating: typeof item.rating === 'number' ? item.rating : null,
+        offStore: covers !== undefined && (cover === undefined || cover.isActive === false),
+      }
+    })
     .sort((a, b) => b.acquiredAt.localeCompare(a.acquiredAt) || a.name.localeCompare(b.name, 'pt-BR'))
 }
 

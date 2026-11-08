@@ -112,3 +112,16 @@
     background-position: -200% 0;
   }
 }
+
+/* Jogo da biblioteca que saiu da loja: neutro, para não confundir com o rosa das promoções. */
+.off-store-tag {
+  display: inline-block;
+  padding: 3px 7px;
+  background: rgb(0 0 0 / 0.82);
+  border: 1px solid var(--line-strong);
+  color: var(--text);
+  font-size: var(--text-xs);
+  font-weight: 800;
+  letter-spacing: var(--track-caps);
+  text-transform: uppercase;
+}

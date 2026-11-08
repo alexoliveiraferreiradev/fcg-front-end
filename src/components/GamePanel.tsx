@@ -6,6 +6,8 @@ import { formatDate, formatDayMonth } from '../lib/format'
 import { GameCover } from './GameCover'
 import { GameAction } from './GameAction'
 import { Price } from './Price'
+import { RateGame } from './RateGame'
+import { RatingSummary } from './Rating'
 import { CheckIcon, ClockIcon, CloseIcon } from './Icons'
 import './GamePanel.css'
 
@@ -74,6 +76,7 @@ export function GamePanel({ game: current, onClose }: Props) {
           <div className="panel__cover">
             <GameCover name={game.name} coverUrl={game.coverUrl} eager />
             {!isLibraryGame(game) && game.discount !== null && <span className="discount-tag panel__tag">-{game.discount}%</span>}
+            {isLibraryGame(game) && game.offStore && <span className="off-store-tag panel__tag">Fora da loja</span>}
           </div>
           <div className="panel__body">
             <h2 id="panel-title" className="panel__name">
@@ -81,11 +84,21 @@ export function GamePanel({ game: current, onClose }: Props) {
             </h2>
             <p className="panel__genre">{genreLabel(game.genre)}</p>
             {isLibraryGame(game) ? (
-              <p className="panel__owned">
-                <CheckIcon /> Na biblioteca desde {formatDate(game.acquiredAt)}
-              </p>
+              <>
+                <p className="panel__owned">
+                  <CheckIcon /> Na biblioteca desde {formatDate(game.acquiredAt)}
+                </p>
+                {game.offStore && (
+                  <p className="panel__off-store">
+                    <strong>Este jogo saiu da loja.</strong> Não está mais à venda, mas continua seu: segue na biblioteca e você pode
+                    avaliá-lo.
+                  </p>
+                )}
+                <RateGame key={game.id} game={game} />
+              </>
             ) : (
               <>
+                <RatingSummary average={game.averageRating} count={game.ratingCount} />
                 <div className="panel__deal">
                   <Price current={game.currentPrice} original={game.originalPrice} className="panel__price" />
                   {game.endDate && (

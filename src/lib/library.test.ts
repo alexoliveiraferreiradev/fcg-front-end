@@ -30,6 +30,33 @@ describe('toLibraryGames', () => {
     )
     expect(Object.fromEntries(list.map((g) => [g.id, g.coverUrl]))).toEqual({ a: '/covers/a.svg', b: null, c: null })
   })
+
+  it('leva a nota do Player; sem o campo, fica sem nota', () => {
+    const list = toLibraryGames([
+      { ...item('a', 'A', '2026-10-01T10:00:00Z'), rating: 4 },
+      { ...item('b', 'B', '2026-10-02T10:00:00Z'), rating: null },
+      item('c', 'C', '2026-10-03T10:00:00Z'),
+    ])
+    expect(Object.fromEntries(list.map((g) => [g.id, g.rating]))).toEqual({ a: 4, b: null, c: null })
+  })
+
+  it('marca fora da loja o jogo desativado e o que o Catalog não conhece mais', () => {
+    const list = toLibraryGames(
+      [item('ativo', 'Ativo', '2026-10-01T10:00:00Z'), item('off', 'Off', '2026-10-02T10:00:00Z'), item('sumiu', 'Sumiu', '2026-10-03T10:00:00Z'), item('antigo', 'Antigo', '2026-10-04T10:00:00Z')],
+      [
+        { gameId: 'ativo', name: 'Ativo', coverUrl: null, isActive: true },
+        { gameId: 'off', name: 'Off', coverUrl: null, isActive: false },
+        // Catalog antes do isActive: sem o campo, segue na loja.
+        { gameId: 'antigo', name: 'Antigo', coverUrl: null },
+      ],
+    )
+    expect(Object.fromEntries(list.map((g) => [g.id, g.offStore]))).toEqual({ ativo: false, off: true, sumiu: true, antigo: false })
+  })
+
+  it('sem as capas (carregando ou com falha) não afirma que saiu da loja', () => {
+    const list = toLibraryGames([item('a', 'A', '2026-10-01T10:00:00Z')])
+    expect(list[0].offStore).toBe(false)
+  })
 })
 
 describe('pageOf', () => {

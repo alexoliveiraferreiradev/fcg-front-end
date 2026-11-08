@@ -144,6 +144,19 @@
   width: 16px;
   height: 16px;
 }
+/* Aviso de jogo fora da loja, no tom neutro do selo. */
+.panel__off-store {
+  margin-top: calc(-1 * var(--s2));
+  padding: var(--s3);
+  border-left: 2px solid var(--line-strong);
+  background: var(--panel-2);
+  color: var(--muted);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+}
+.panel__off-store strong {
+  color: var(--text);
+}
 .panel__desc {
   max-width: 65ch;
   color: rgb(255 255 255 / 0.82);
@@ -177,4 +190,7 @@
   to {
     opacity: 0;
   }
+}
+.off-store-tag.panel__tag {
+  font-size: var(--text-xs);
 }
