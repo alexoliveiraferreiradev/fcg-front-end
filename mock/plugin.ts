@@ -81,6 +81,66 @@ function toUser(g: MockGame) {
   }
 }
 
+// Busca imitando o multi_match do Elasticsearch: nome pesa mais que gênero, que pesa mais que descrição;
+// basta um termo casar (OR); prefixo conta; erro de digitação tolerado como fuzziness AUTO com prefix_length 1.
+const normalize = (text: string) => text.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase()
+// "MundoAberto" → "Mundo Aberto": o índice guarda o gênero pelo nome do enum.
+const words = (text: string) => normalize(text.replace(/([a-z])([A-Z])/g, '$1 $2')).split(/[^a-z0-9]+/).filter(Boolean)
+
+function editDistance(a: string, b: string): number {
+  const row = Array.from({ length: b.length + 1 }, (_, i) => i)
+  for (let i = 1; i <= a.length; i++) {
+    let prev = row[0]
+    row[0] = i
+    for (let j = 1; j <= b.length; j++) {
+      const cur = row[j]
+      row[j] = Math.min(row[j] + 1, row[j - 1] + 1, prev + (a[i - 1] === b[j - 1] ? 0 : 1))
+      prev = cur
+    }
+  }
+  return row[b.length]
+}
+
+function tokenScore(token: string, fieldWords: string[]): number {
+  let best = 0
+  const allowed = token.length >= 6 ? 2 : token.length >= 3 ? 1 : 0
+  for (const w of fieldWords) {
+    if (w === token) return 1
+    if (token.length >= 2 && w.startsWith(token)) best = Math.max(best, 0.8)
+    else if (allowed && w[0] === token[0] && editDistance(token, w) <= allowed) best = Math.max(best, 0.6)
+  }
+  return best
+}
+
+function searchGames(term: string): MockGame[] {
+  const tokens = words(term)
+  return games
+    .filter((g) => !g.inactive)
+    .map((g) => {
+      const fields: [string[], number][] = [
+        [words(g.name), 3],
+        [words(g.genre), 2],
+        [words(g.description), 1],
+      ]
+      const score = tokens.reduce((sum, t) => sum + Math.max(...fields.map(([ws, weight]) => tokenScore(t, ws) * weight)), 0)
+      return { g, score }
+    })
+    .filter((r) => r.score > 0)
+    .sort((a, b) => b.score - a.score || a.g.name.localeCompare(b.g.name, 'pt-BR'))
+    .map((r) => r.g)
+}
+
+// Mesmas regras e mensagens do SearchGamesQueryValidator.
+function searchErrors(term: string, page: number, pageSize: number): Record<string, string[]> {
+  const errors: Record<string, string[]> = {}
+  if (!term.trim()) errors.Term = ['Informe o termo da busca.']
+  else if (term.trim().length > 100) errors.Term = ['O termo da busca deve ter no máximo 100 caracteres.']
+  if (!(page >= 1)) errors.Page = ['A página deve ser maior ou igual a 1.']
+  else if (page * pageSize > 10_000) errors.Page = ['A busca alcança no máximo os 10.000 primeiros resultados.']
+  if (!(pageSize >= 1 && pageSize <= 50)) errors.PageSize = ['O tamanho da página deve ser entre 1 e 50.']
+  return errors
+}
+
 function toPromotion(g: MockGame, i: number) {
   const price = currentPrice(g)
   return {
@@ -163,6 +223,14 @@ export function mockApi(): Plugin {
           const list = games.filter((g) => !g.inactive && g.promoPrice !== undefined).slice(0, PROMO_LIMIT).map(toPromotion)
           if (list.length === 0) return send(res, 404)
           return send(res, 200, paged(list, page, pageSize))
+        }
+
+        if (req.method === 'GET' && path === '/catalog/games/search') {
+          const term = url.searchParams.get('q') ?? ''
+          const errors = searchErrors(term, page, pageSize)
+          if (Object.keys(errors).length) return send(res, 400, { title: 'One or more validation errors occurred.', status: 400, errors })
+          // Diferente de /catalog/games: sem resultado é 200 com a lista vazia.
+          return send(res, 200, paged(searchGames(term).map(toUser), page, pageSize))
         }
 
         if (req.method === 'GET' && path === '/catalog/games/covers') {
