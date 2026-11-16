@@ -70,7 +70,60 @@ export function sortPromotions(list: GameView[]): GameView[] {
   )
 }
 
+const GENRE_LABELS: Record<GameGenre, string> = {
+  Acao: 'Ação',
+  Aventura: 'Aventura',
+  Estrategia: 'Estratégia',
+  RPG: 'RPG',
+  Esporte: 'Esporte',
+  Simulacao: 'Simulação',
+  QuebraCabeca: 'Quebra-cabeça',
+  Terror: 'Terror',
+  Luta: 'Luta',
+  FPS: 'FPS',
+  MundoAberto: 'Mundo aberto',
+  Plataforma: 'Plataforma',
+  Corrida: 'Corrida',
+  Indie: 'Indie',
+  Esportes: 'Esportes',
+  Roguelike: 'Roguelike',
+  MOBA: 'MOBA',
+  Battle_Royale: 'Battle Royale',
+  Metroidvania: 'Metroidvania',
+  Soulslike: 'Soulslike',
+}
+
+/**
+ * Nomes em inglês de antes da troca no Catalog. A UserLibrary guarda o gênero da compra como texto,
+ * então itens antigos da biblioteca (e links antigos com ?genero=) ainda chegam assim.
+ */
+const LEGACY_GENRES: Record<string, GameGenre> = {
+  Action: 'Acao',
+  Adventure: 'Aventura',
+  Strategy: 'Estrategia',
+  Sport: 'Esporte',
+  Simulation: 'Simulacao',
+  Puzzle: 'QuebraCabeca',
+  Horror: 'Terror',
+  Fighting: 'Luta',
+  OpenWorld: 'MundoAberto',
+  Platformer: 'Plataforma',
+  Racing: 'Corrida',
+  Sports: 'Esportes',
+}
+
+const isGenre = (value: string): value is GameGenre => Object.hasOwn(GENRE_LABELS, value)
+
+/** Chave atual do gênero, aceitando o nome antigo em inglês; undefined para o que não é gênero. */
+export function toGenre(value: string | null | undefined): GameGenre | undefined {
+  if (!value) return undefined
+  if (isGenre(value)) return value
+  // hasOwn: o valor vem da URL, e "constructor" acharia o Object.prototype.
+  return Object.hasOwn(LEGACY_GENRES, value) ? LEGACY_GENRES[value] : undefined
+}
+
+/** "MundoAberto" → "Mundo aberto"; o nome antigo também ("OpenWorld" → "Mundo aberto"). Desconhecido: o texto sem "_". */
 export function genreLabel(genre: string): string {
-  if (genre === 'OpenWorld') return 'Open World'
-  return genre.replace(/_/g, ' ')
+  const key = toGenre(genre)
+  return key ? GENRE_LABELS[key] : genre.replace(/_/g, ' ')
 }

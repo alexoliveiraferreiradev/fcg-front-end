@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { discountPercent, fromCatalog, fromPromotion, sortPromotions } from './game'
+import { discountPercent, fromCatalog, fromPromotion, genreLabel, sortPromotions, toGenre } from './game'
 import { formatPrice } from './format'
 import { pageWindow } from './pagination'
 
@@ -61,5 +61,34 @@ describe('pageWindow', () => {
   it('mostra vizinhas e reticências', () => {
     expect(pageWindow(5, 10)).toEqual([1, '…', 4, 5, 6, '…', 10])
     expect(pageWindow(1, 3)).toEqual([1, 2, 3])
+  })
+})
+
+describe('gêneros', () => {
+  it('rótulo em português para as chaves do Catalog', () => {
+    expect(genreLabel('Acao')).toBe('Ação')
+    expect(genreLabel('MundoAberto')).toBe('Mundo aberto')
+    expect(genreLabel('QuebraCabeca')).toBe('Quebra-cabeça')
+    expect(genreLabel('Battle_Royale')).toBe('Battle Royale')
+    expect(genreLabel('RPG')).toBe('RPG')
+  })
+
+  it('traduz o nome antigo em inglês guardado na biblioteca', () => {
+    expect(genreLabel('Adventure')).toBe('Aventura')
+    expect(genreLabel('OpenWorld')).toBe('Mundo aberto')
+    expect(genreLabel('Sports')).toBe('Esportes')
+    expect(genreLabel('Sport')).toBe('Esporte')
+  })
+
+  it('gênero desconhecido aparece como veio, sem sublinhado', () => {
+    expect(genreLabel('Novo_Genero')).toBe('Novo Genero')
+  })
+
+  it('toGenre aceita a chave atual e a antiga; o resto é undefined', () => {
+    expect(toGenre('Corrida')).toBe('Corrida')
+    expect(toGenre('Racing')).toBe('Corrida')
+    expect(toGenre('constructor')).toBeUndefined()
+    expect(toGenre('')).toBeUndefined()
+    expect(toGenre(null)).toBeUndefined()
   })
 })
