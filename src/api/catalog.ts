@@ -25,6 +25,22 @@ export function getCatalog(params: { genre?: GameGenre; page: number; pageSize: 
   )
 }
 
+/**
+ * Busca por texto no Elasticsearch do Catalog (nome, gênero e descrição; tolera erro de digitação).
+ * Só jogos ativos, do mais relevante para o menos relevante. Sem resultado vem 200 com a lista vazia.
+ */
+export function searchCatalog(params: { term: string; page: number; pageSize: number }, signal?: AbortSignal) {
+  return pagedOrEmpty(
+    request<PagedResult<GameUserResponse>>('/catalog/games/search', {
+      query: { q: params.term, page: params.page, pageSize: params.pageSize },
+      auth: false,
+      signal,
+    }),
+    params.page,
+    params.pageSize,
+  )
+}
+
 export function getPromoted(signal?: AbortSignal) {
   return pagedOrEmpty(
     request<PagedResult<GamePromotionResponse>>('/catalog/games/promoted', {
