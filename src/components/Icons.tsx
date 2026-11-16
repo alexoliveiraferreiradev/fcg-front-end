@@ -114,6 +114,13 @@ export const LogoutIcon = (p: IconProps) => (
   </Base>
 )
 
+export const SearchIcon = (p: IconProps) => (
+  <Base {...p}>
+    <path d="M10.5 18a7.5 7.5 0 1 0 0-15 7.5 7.5 0 0 0 0 15Z" />
+    <path d="m16 16 5 5" />
+  </Base>
+)
+
 /** Estrela da avaliação: passe fill="currentColor" para a cheia. */
 export const StarIcon = (p: IconProps) => (
   <Base strokeLinejoin="round" {...p}>
