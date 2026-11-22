@@ -16,7 +16,7 @@ npm run dev        # usa o Kong via proxy do Vite (/api → localhost:8000)
 npm run dev:mock   # sem back-end: dados de exemplo de mock/, com faixa de aviso na tela
 ```
 
-No modo mock, qualquer e-mail/senha entra; e-mail com "admin" entra como Admin; a senha `errada` devolve 401. `MOCK_PROMOS=0..5` limita as promoções exibidas.
+No modo mock, qualquer e-mail/senha entra; e-mail com "admin" entra como Admin; a senha `errada` devolve 401. `MOCK_PROMOS=0..5` limita as promoções exibidas; `MOCK_RATING_DELAY` (ms, padrão 1500) é o atraso até a média do catálogo mudar depois de uma nota.
 
 ```bash
 npm test           # Vitest
@@ -30,3 +30,7 @@ Pronto: base (tema, cabeçalho, sessão, carrinho, avisos), catálogo com promo�
 Próximas etapas: carrinho/pagamento/pedidos, biblioteca, minha conta, admin.
 
 O catálogo usa os campos da mudança planejada no `fcg-catalog-api` (`coverUrl`, `originalPrice` público, `gameId`/`endDate` nas promoções). Sem eles, os cards mostram o placeholder no lugar da capa, sem preço riscado, e as promoções ficam sem botão de carrinho.
+
+Avaliação de jogos: o Player dá de 1 a 5 estrelas no painel de um jogo da biblioteca (`PUT /library/{gameId}/rating`, a UserLibrary aceita de 0 a 5) e o catálogo mostra a média e a quantidade (`averageRating`/`ratingCount` do `fcg-catalog-api`), que mudam depois que o Catalog consome o evento. O Kong precisa liberar `PUT` na `userlibrary-route` (hoje só `GET`).
+
+Busca e gêneros: o campo no topo do catálogo usa `GET /catalog/games/search?q=` (Elasticsearch no `fcg-catalog-api`; tolera erro de digitação e ordena por relevância), com o termo na URL (`?busca=`). Os gêneros seguem o enum em português do Catalog (`Acao`, `MundoAberto`...), com rótulo acentuado na tela; nomes antigos em inglês (itens antigos da biblioteca e links com `?genero=Action`) são traduzidos. No mock, a busca imita o Elasticsearch (nome pesa mais que gênero e descrição, aceita erro de digitação).

@@ -66,3 +66,8 @@
 .promotions__strip-wrap > * {
   min-width: 0;
 }
+
+/* A busca fica colada ao que ela controla: menos espaço que entre as seções. */
+.catalog > .search {
+  margin-bottom: calc(-1 * var(--s5));
+}

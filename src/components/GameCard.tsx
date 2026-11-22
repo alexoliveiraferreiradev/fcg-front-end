@@ -3,6 +3,7 @@ import { genreLabel } from '../lib/game'
 import { GameCover } from './GameCover'
 import { GameAction } from './GameAction'
 import { Price } from './Price'
+import { RatingAverage } from './Rating'
 import './GameCard.css'
 
 interface Props {
@@ -26,6 +27,7 @@ export function GameCard({ game, onOpen, eager }: Props) {
           </button>
         </h3>
         <p className="game-card__genre">{genreLabel(game.genre)}</p>
+        <RatingAverage average={game.averageRating} count={game.ratingCount} />
         <div className="game-card__row">
           <Price current={game.currentPrice} original={game.originalPrice} />
           <div className="game-card__action">
