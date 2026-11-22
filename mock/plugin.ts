@@ -5,11 +5,12 @@ import { games, orphan, owned, type MockGame } from './data.ts'
 // Simula as rotas do Kong usadas pelo front, só em `npm run dev:mock`.
 // Login: qualquer e-mail/senha; e-mail com "admin" entra como Admin; senha "errada" devolve 401.
 // MOCK_PROMOS=0..5 limita quantas promoções aparecem (para testar o destaque); MOCK_LIBRARY=0..14 limita a biblioteca
-// (0 testa a biblioteca vazia); MOCK_LATENCY em ms.
+// (0 testa a biblioteca vazia); MOCK_LATENCY em ms; MOCK_RATING_DELAY em ms até a média do catálogo mudar depois de uma nota.
 
 const LATENCY = Number(process.env.MOCK_LATENCY ?? 350)
 const PROMO_LIMIT = process.env.MOCK_PROMOS === undefined ? Infinity : Number(process.env.MOCK_PROMOS)
 const LIBRARY_LIMIT = process.env.MOCK_LIBRARY === undefined ? Infinity : Number(process.env.MOCK_LIBRARY)
+const RATING_DELAY = Number(process.env.MOCK_RATING_DELAY ?? 1500)
 
 function send(res: ServerResponse, status: number, body?: unknown) {
   res.statusCode = status
@@ -41,6 +42,30 @@ async function readJson(req: IncomingMessage): Promise<Record<string, string>> {
 
 const currentPrice = (g: MockGame) => g.promoPrice ?? g.originalPrice
 
+// Avaliações em memória (somem ao reiniciar o Vite): a nota do Player por jogo (UserLibrary)
+// e a soma/quantidade por jogo (Catalog), que muda só depois de RATING_DELAY, como o consumer do Service Bus.
+const playerRatings = new Map(owned.flatMap((o) => (o.rating === undefined ? [] : [[o.id, o.rating] as const])))
+const catalogRatings = new Map(games.map((g) => [g.id, { ...(g.ratings ?? { sum: 0, count: 0 }) }]))
+
+// Como o Game do Catalog: média com uma casa, null sem avaliações.
+function ratingOf(gameId: string) {
+  const r = catalogRatings.get(gameId)
+  if (!r || r.count === 0) return { averageRating: null, ratingCount: 0 }
+  return { averageRating: Math.round((r.sum / r.count) * 10) / 10, ratingCount: r.count }
+}
+
+/** Primeira nota soma e conta; reavaliação troca a nota antiga pela nova (AddRating/ChangeRating do Game). */
+function applyToCatalog(gameId: string, previous: number | undefined, rating: number) {
+  const r = catalogRatings.get(gameId)
+  if (!r) return // jogo que o Catalog não conhece mais: o consumer não acha o Game
+  if (previous === undefined) {
+    r.sum += rating
+    r.count++
+  } else {
+    r.sum += rating - previous
+  }
+}
+
 function toUser(g: MockGame) {
   const price = currentPrice(g)
   return {
@@ -52,7 +77,68 @@ function toUser(g: MockGame) {
     genre: g.genre,
     hasDiscount: price < g.originalPrice,
     coverUrl: g.coverUrl ?? null,
+    ...ratingOf(g.id),
   }
+}
+
+// Busca imitando o multi_match do Elasticsearch: nome pesa mais que gênero, que pesa mais que descrição;
+// basta um termo casar (OR); prefixo conta; erro de digitação tolerado como fuzziness AUTO com prefix_length 1.
+const normalize = (text: string) => text.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase()
+// "MundoAberto" → "Mundo Aberto": o índice guarda o gênero pelo nome do enum.
+const words = (text: string) => normalize(text.replace(/([a-z])([A-Z])/g, '$1 $2')).split(/[^a-z0-9]+/).filter(Boolean)
+
+function editDistance(a: string, b: string): number {
+  const row = Array.from({ length: b.length + 1 }, (_, i) => i)
+  for (let i = 1; i <= a.length; i++) {
+    let prev = row[0]
+    row[0] = i
+    for (let j = 1; j <= b.length; j++) {
+      const cur = row[j]
+      row[j] = Math.min(row[j] + 1, row[j - 1] + 1, prev + (a[i - 1] === b[j - 1] ? 0 : 1))
+      prev = cur
+    }
+  }
+  return row[b.length]
+}
+
+function tokenScore(token: string, fieldWords: string[]): number {
+  let best = 0
+  const allowed = token.length >= 6 ? 2 : token.length >= 3 ? 1 : 0
+  for (const w of fieldWords) {
+    if (w === token) return 1
+    if (token.length >= 2 && w.startsWith(token)) best = Math.max(best, 0.8)
+    else if (allowed && w[0] === token[0] && editDistance(token, w) <= allowed) best = Math.max(best, 0.6)
+  }
+  return best
+}
+
+function searchGames(term: string): MockGame[] {
+  const tokens = words(term)
+  return games
+    .filter((g) => !g.inactive)
+    .map((g) => {
+      const fields: [string[], number][] = [
+        [words(g.name), 3],
+        [words(g.genre), 2],
+        [words(g.description), 1],
+      ]
+      const score = tokens.reduce((sum, t) => sum + Math.max(...fields.map(([ws, weight]) => tokenScore(t, ws) * weight)), 0)
+      return { g, score }
+    })
+    .filter((r) => r.score > 0)
+    .sort((a, b) => b.score - a.score || a.g.name.localeCompare(b.g.name, 'pt-BR'))
+    .map((r) => r.g)
+}
+
+// Mesmas regras e mensagens do SearchGamesQueryValidator.
+function searchErrors(term: string, page: number, pageSize: number): Record<string, string[]> {
+  const errors: Record<string, string[]> = {}
+  if (!term.trim()) errors.Term = ['Informe o termo da busca.']
+  else if (term.trim().length > 100) errors.Term = ['O termo da busca deve ter no máximo 100 caracteres.']
+  if (!(page >= 1)) errors.Page = ['A página deve ser maior ou igual a 1.']
+  else if (page * pageSize > 10_000) errors.Page = ['A busca alcança no máximo os 10.000 primeiros resultados.']
+  if (!(pageSize >= 1 && pageSize <= 50)) errors.PageSize = ['O tamanho da página deve ser entre 1 e 50.']
+  return errors
 }
 
 function toPromotion(g: MockGame, i: number) {
@@ -68,6 +154,7 @@ function toPromotion(g: MockGame, i: number) {
     discountPercentage: Math.round(((g.originalPrice - price) / g.originalPrice) * 10000) / 100,
     endDate: g.promoEnd,
     coverUrl: g.coverUrl ?? null,
+    ...ratingOf(g.id),
   }
 }
 
@@ -127,15 +214,23 @@ export function mockApi(): Plugin {
 
         if (req.method === 'GET' && path === '/catalog/games') {
           const genre = url.searchParams.get('genre')
-          const list = games.filter((g) => !genre || g.genre === genre).map(toUser)
+          const list = games.filter((g) => !g.inactive && (!genre || g.genre === genre)).map(toUser)
           if (list.length === 0) return send(res, 404)
           return send(res, 200, paged(list, page, pageSize))
         }
 
         if (req.method === 'GET' && path === '/catalog/games/promoted') {
-          const list = games.filter((g) => g.promoPrice !== undefined).slice(0, PROMO_LIMIT).map(toPromotion)
+          const list = games.filter((g) => !g.inactive && g.promoPrice !== undefined).slice(0, PROMO_LIMIT).map(toPromotion)
           if (list.length === 0) return send(res, 404)
           return send(res, 200, paged(list, page, pageSize))
+        }
+
+        if (req.method === 'GET' && path === '/catalog/games/search') {
+          const term = url.searchParams.get('q') ?? ''
+          const errors = searchErrors(term, page, pageSize)
+          if (Object.keys(errors).length) return send(res, 400, { title: 'One or more validation errors occurred.', status: 400, errors })
+          // Diferente de /catalog/games: sem resultado é 200 com a lista vazia.
+          return send(res, 200, paged(searchGames(term).map(toUser), page, pageSize))
         }
 
         if (req.method === 'GET' && path === '/catalog/games/covers') {
@@ -143,7 +238,7 @@ export function mockApi(): Plugin {
           if (ids.length === 0 || new Set(ids).size > 50) {
             return send(res, 400, { title: 'One or more validation errors occurred.', status: 400, errors: { ids: [ids.length === 0 ? 'Informe ao menos um id de jogo.' : 'Informe no máximo 50 ids de jogo por consulta.'] } })
           }
-          const found = games.filter((g) => ids.includes(g.id)).map((g) => ({ gameId: g.id, name: g.name, coverUrl: g.coverUrl ?? null }))
+          const found = games.filter((g) => ids.includes(g.id)).map((g) => ({ gameId: g.id, name: g.name, coverUrl: g.coverUrl ?? null, isActive: !g.inactive }))
           return send(res, 200, found)
         }
 
@@ -154,13 +249,33 @@ export function mockApi(): Plugin {
           const items = [
             ...owned.map(({ id, acquiredAt }) => {
               const g = games.find((x) => x.id === id)!
-              return { gameId: g.id, gameName: g.name, description: g.description, genre: g.genre, acquiredAt }
+              return { gameId: g.id, gameName: g.name, description: g.description, genre: g.genre, acquiredAt, rating: playerRatings.get(id) ?? null }
             }),
-            orphan,
+            { ...orphan, rating: playerRatings.get(orphan.gameId) ?? null },
           ].slice(0, LIBRARY_LIMIT)
           // Como a UserLibrary: biblioteca vazia responde 404.
           if (items.length === 0) return send(res, 404)
           return send(res, 200, paged(items, page, pageSize))
+        }
+
+        const rated = path.match(/^\/library\/([^/]+)\/rating$/)
+        if (req.method === 'PUT' && rated) {
+          const role = roleFrom(req)
+          if (!role) return send(res, 401)
+          if (role !== 'Player') return send(res, 403)
+          const gameId = decodeURIComponent(rated[1])
+          // Mesmas mensagens do LibraryEntry.Rate e do handler (DomainException vira 400).
+          if (!owned.some((o) => o.id === gameId) && orphan.gameId !== gameId) {
+            return send(res, 400, { title: 'Bad Request', status: 400, detail: 'Jogo não encontrado.' })
+          }
+          const rating = ((await readJson(req)) as Record<string, unknown>).rating
+          if (typeof rating !== 'number' || Number.isNaN(rating) || rating < 0 || rating > 5) {
+            return send(res, 400, { title: 'Bad Request', status: 400, detail: 'A avaliação deve ser entre 0 e 5.' })
+          }
+          const previous = playerRatings.get(gameId)
+          playerRatings.set(gameId, rating)
+          setTimeout(() => applyToCatalog(gameId, previous, rating), RATING_DELAY)
+          return send(res, 204)
         }
 
         if (path === '/my-account' || path === '/my-account/' || path.startsWith('/my-account/')) {

@@ -272,3 +272,8 @@
     min-height: 0;
   }
 }
+
+/* A coluna já espaça os itens. */
+.promo__info .rating-avg {
+  margin-top: 0;
+}

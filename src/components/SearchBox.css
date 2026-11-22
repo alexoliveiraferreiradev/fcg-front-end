@@ -1,0 +1,85 @@
+.search {
+  display: flex;
+  gap: var(--s2);
+  width: 100%;
+  max-width: 640px;
+}
+
+.search__control {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  display: grid;
+}
+
+/* Ícone decorativo: o rótulo (sr-only) já descreve o campo. */
+.search__icon {
+  position: absolute;
+  left: var(--s3);
+  top: 50%;
+  width: 18px;
+  height: 18px;
+  color: var(--faint);
+  pointer-events: none;
+  transform: translateY(-50%);
+  transition: color 0.15s;
+}
+.search__control:focus-within .search__icon {
+  color: var(--accent-ink);
+}
+
+.search__input {
+  height: 44px;
+  padding: 0 calc(var(--s2) + 32px) 0 calc(var(--s3) + 18px + var(--s3));
+  border: 1px solid var(--line-strong);
+  border-radius: 0;
+  background: var(--panel);
+  color: var(--text);
+  transition: border-color 0.15s;
+}
+.search__input:hover {
+  border-color: var(--faint);
+}
+.search__input:focus-visible {
+  outline: none;
+  border-color: var(--accent-ink);
+  box-shadow: 0 0 0 1px var(--accent-ink);
+}
+.search__input::placeholder {
+  color: var(--faint);
+}
+/* O X nativo do type="search" some: o botão "Limpar busca" faz o mesmo e também limpa a URL. */
+.search__input::-webkit-search-cancel-button {
+  appearance: none;
+}
+
+.search__clear {
+  position: absolute;
+  right: var(--s1);
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  transform: translateY(-50%);
+}
+.search__clear:hover {
+  color: var(--text);
+}
+.search__clear:focus-visible {
+  outline: 2px solid var(--accent-ink);
+  outline-offset: -2px;
+}
+.search__clear svg {
+  width: 16px;
+  height: 16px;
+}
+
+.search__submit {
+  min-height: 44px;
+  flex: none;
+}

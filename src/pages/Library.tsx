@@ -1,7 +1,7 @@
 import { useMemo, useRef, useState } from 'react'
 import { Link, Navigate, useSearchParams } from 'react-router-dom'
 import { useAuth } from '../auth/AuthContext'
-import { pageOf, toLibraryGames, type LibraryGame } from '../lib/library'
+import { pageOf, toLibraryGames } from '../lib/library'
 import { useGameCovers, useLibrary } from '../lib/useLibrary'
 import { GameCardSkeleton } from '../components/GameCard'
 import { GamePanel } from '../components/GamePanel'
@@ -39,7 +39,8 @@ export function Library() {
 function PlayerLibrary() {
   const [params, setParams] = useSearchParams()
   const page = parsePage(params.get('pagina'))
-  const [selected, setSelected] = useState<LibraryGame | null>(null)
+  // Guarda o id: o painel lê o jogo da lista, e a nota salva aparece nele sem fechar.
+  const [selectedId, setSelectedId] = useState<string | null>(null)
   const top = useRef<HTMLDivElement>(null)
 
   const library = useLibrary()
@@ -49,6 +50,7 @@ function PlayerLibrary() {
   // Sem capas (falha no Catalog) os cards seguem com o placeholder.
   const games = useMemo(() => toLibraryGames(library.data ?? [], covers.data), [library.data, covers.data])
   const { items, totalPages } = pageOf(games, page, PAGE_SIZE)
+  const selected = games.find((g) => g.id === selectedId) ?? null
   const coverPending = covers.isPending && covers.fetchStatus !== 'idle'
 
   const goToPage = (n: number) => {
@@ -102,7 +104,7 @@ function PlayerLibrary() {
         {items.length > 0 && (
           <div className="catalog__grid">
             {items.map((g, i) => (
-              <LibraryCard key={g.id} game={g} onOpen={setSelected} coverPending={coverPending} eager={i < 6} />
+              <LibraryCard key={g.id} game={g} onOpen={(g) => setSelectedId(g.id)} coverPending={coverPending} eager={i < 6} />
             ))}
           </div>
         )}
@@ -110,7 +112,7 @@ function PlayerLibrary() {
         <Pagination page={page} totalPages={totalPages} onChange={goToPage} />
       </section>
 
-      <GamePanel game={selected} onClose={() => setSelected(null)} />
+      <GamePanel game={selected} onClose={() => setSelectedId(null)} />
     </main>
   )
 }
